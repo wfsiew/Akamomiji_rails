@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  id: MyString
+  category: 
+  name: MyString
+  position: MyString
+  location: 
+  week: 
+  year: 
+  mon: MyString
+  tue: MyString
+  wed: MyString
+  thur: MyString
+  fri: MyString
+  sat: MyString
+  sun: MyString
+
+two:
+  id: MyString
+  category: 
+  name: MyString
+  position: MyString
+  location: 
+  week: 
+  year: 
+  mon: MyString
+  tue: MyString
+  wed: MyString
+  thur: MyString
+  fri: MyString
+  sat: MyString
+  sun: MyString
