@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  id: MyString
+  reserve_date: 2013-02-24
+  reserve_time: 2013-02-24 22:02:09
+  name: MyString
+  pax: MyString
+  table: MyString
+  phone_no: MyString
+  remarks: MyString
+  location: 
+
+two:
+  id: MyString
+  reserve_date: 2013-02-24
+  reserve_time: 2013-02-24 22:02:09
+  name: MyString
+  pax: MyString
+  table: MyString
+  phone_no: MyString
+  remarks: MyString
+  location: 
