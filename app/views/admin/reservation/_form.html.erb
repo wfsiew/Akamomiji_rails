@@ -1,0 +1,97 @@
+<%= form_tag('.', :id => @form_id, :class => 'save_form ui-widget-content ui-widget ui-corner-all') do %>
+  <table>
+    <tr>
+      <td valign="top" class="lbl">
+        <%= label_tag :reserve_date, 'Date', :class => 'label' %>
+      </td>
+      <td>
+        <%= text_field_tag :reserve_date, fmt_date(@reservation.reserve_date), :id => 'id_date', :class => 'text date_input', :placeholder => 'dd-mm-YYYY' %>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="lbl">
+        <%= label_tag :reserve_time, 'Time', :class => 'label' %>
+      </td>
+      <td>
+        <%= text_field_tag :reserve_time, fmt_miltime(@reservation.reserve_time), :id => 'id_time', :class => 'text', :placeholder => 'hh:mm',
+                           :title => '24 hour time format, e.g 23:59' %>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="lbl">
+        <%= label_tag :name, 'Time', :class => 'label' %>
+      </td>
+      <td>
+        <%= text_field_tag :name, @reservation.name, :id => 'id_name', :class => 'text', :placeholder => 'enter name',
+                           :title => 'enter name' %>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="lbl">
+        <%= label_tag :pax, 'Pax', :class => 'label' %>
+      </td>
+      <td>
+        <%= text_field_tag :pax, @reservation.pax, :id => 'id_pax', :class => 'text', :placeholder => 'enter pax',
+                           :title => 'enter pax' %>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="lbl">
+        <%= label_tag :table, 'Table', :class => 'label' %>
+      </td>
+      <td>
+        <%= text_field_tag :table, @reservation.table, :id => 'id_table', :class => 'text', :placeholder => 'enter table',
+                           :title => 'enter table' %>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="lbl">
+        <%= label_tag :phone_no, 'Time', :class => 'label' %>
+      </td>
+      <td>
+        <%= text_field_tag :name, @reservation.phone_no, :id => 'id_phone', :class => 'text', :placeholder => 'enter phone no.',
+                           :title => 'enter phone no.' %>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="lbl">
+        <%= label_tag :remarks, 'Remarks', :class => 'label' %>
+      </td>
+      <td>
+        <%= text_field_tag :remarks, @reservation.remarks, :id => 'id_remarks', :class => 'text', :placeholder => 'enter remarks',
+                           :title => 'enter remarks' %>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="lbl">
+        <%= label_tag :location, 'Location', :class => 'label' %>
+      </td>
+      <td>
+        <select id="id_location" class="select">
+          <%= options_for_select(@location_list, 
+              @reservation.location.blank? ? 1 : @reservation.location) %>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="lbl">
+        <%= label_tag :status, 'Status', :class => 'label' %>
+      </td>
+      <td>
+        <select id="id_status" class="select">
+          <%= options_for_select(@status_list, 
+              @reservation.status.blank? ? 1 : @reservation.status) %>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <div class="row_button">
+          <%= render 'shared/save_button' %>
+          <%= render 'shared/cancel_button' %>
+        </div>
+      </td>
+    </tr>
+  </table>
+<% end %>

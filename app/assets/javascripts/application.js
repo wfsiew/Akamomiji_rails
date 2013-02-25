@@ -21,4 +21,4 @@
 //= require stat
 //= require menu
 //= require sort
-//= require_tree .
+// require_tree .

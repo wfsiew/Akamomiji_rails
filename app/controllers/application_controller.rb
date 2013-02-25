@@ -56,6 +56,14 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  # Formats a time into hh:mm 24 hour format .
+  # Helper method.
+  def fmt_miltime(t)
+    if t.present?
+      t.strftime(ApplicationHelper.time_fmt)
+    end
+  end
+  
   # Returns the user_id.
   def get_user_id
     session[:user_id]
@@ -65,4 +73,5 @@ class ApplicationController < ActionController::Base
   helper_method :logged_in
   helper_method :fmt_date
   helper_method :fmt_time
+  helper_method :fmt_miltime
 end

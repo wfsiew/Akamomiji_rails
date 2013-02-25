@@ -1,4 +1,25 @@
 AkamomijiRails::Application.routes.draw do
+  root to: 'admin/admin#index'
+  
+  match 'login' => 'application#new', as: :login
+  match 'auth' => 'application#create', as: :auth
+  match 'logout' => 'application#destroy', as: :logout
+  
+  namespace :admin do
+    match 'index' => 'admin#index', as: :index, via: :get
+    
+    scope 'resv', as: 'resv' do
+      match '' => 'reservation#index', via: :get
+      match 'list' => 'reservation#list', as: :list, via: [:get, :post]
+      match 'new' => 'reservation#new', as: :new, via: :get
+      match 'create' => 'reservation#create', as: :create, via: :post
+      match 'edit(/:id)' => 'reservation#edit', as: :edit, via: :get
+      match 'update(/:id)' => 'reservation#update', as: :update, via: :post
+      match 'delete' => 'reservation#destroy', as: :delete, via: :post
+    end
+  end
+  
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
