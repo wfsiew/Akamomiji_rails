@@ -5,7 +5,9 @@ var reservation = ( function() {
       edit : '/admin/resv/edit/',
       update : '/admin/resv/update/',
       del : '/admin/resv/delete/',
-      list : '/admin/resv/list/'
+      list : '/admin/resv/list/',
+      update_location : '/admin/resv/update/location/',
+      update_status : '/admin/resv/update/status/'
     };
     
     var popup_dialog_opt = null;
@@ -13,7 +15,7 @@ var reservation = ( function() {
     function init_ui_opt() {
       popup_dialog_opt = {
         autoOpen : false,
-        width : 350,
+        width : 380,
         resizable : false,
         draggable : true,
         modal : false,
@@ -24,6 +26,7 @@ var reservation = ( function() {
     
     function show_form() {
       $('#dialog_add_body').load(url.add, function() {
+        $('.save_form .date_input').datepicker(utils.date_opt());
         $('.save_button.save').click(func_save);
         $('.save_button.cancel').click(func_cancel_add);
         utils.bind_hover($('.save_button'));
@@ -90,6 +93,7 @@ var reservation = ( function() {
 
       id = utils.get_itemid(id);
       $('#dialog_edit_body').load(url.edit + id, function() {
+        $('.save_form .date_input').datepicker(utils.date_opt());
         $('.save_button.save').click(function() {
           return func_update(id);
         });
@@ -178,6 +182,34 @@ var reservation = ( function() {
         }
       });
     }
+    
+    function func_update_location() {
+      var e = $(this);
+      var id = e.parent().parent().attr('id');
+      var data = {
+        location : e.val()
+      };
+      
+      id = utils.get_itemid(id);
+      $.post(url.update_location + id, data, function(result) {
+        if (result.error == 1)
+          e.val(result.location);
+      });
+    }
+    
+    function func_update_status() {
+      var e = $(this);
+      var id = e.parent().parent().attr('id');
+      var data = {
+        status : e.val()
+      };
+      
+      id = utils.get_itemid(id);
+      $.post(url.update_status + id, data, function(result) {
+        if (result.error == 1)
+          e.val(result.status);
+      });
+    }
 
     function select_all() {
       var a = $(this).attr('checked');
@@ -192,8 +224,8 @@ var reservation = ( function() {
       var form = (t == 'add' ? $('#add-form') : $('#edit-form'));
 
       var data = {
-        reserve_date : form.find('#id_date').val(),
-        reserve_time : form.find('#id_time').val(),
+        reserve_date : form.find('#id_reserve_date').val(),
+        reserve_time : form.find('#id_reserve_time').val(),
         name : form.find('#id_name').val(),
         pax : form.find('#id_pax').val(),
         table : form.find('#id_table').val(),
@@ -232,16 +264,23 @@ var reservation = ( function() {
         }
       });
       $('.sortheader').click(sort_list);
+      $('.location').change(func_update_location);
+      $('.status').change(func_update_status);
     }
 
     function init() {
+      init_ui_opt();
+      $('#id_add').click(show_form);
       $('.date_input').datepicker(utils.date_opt());
       $('#id_find').click(nav_list.show_list);
       $('#id_display').change(nav_list.show_list);
+      $('#dialog-add').dialog(popup_dialog_opt);
+      $('#dialog-edit').dialog(popup_dialog_opt);
       utils.init_alert_dialog('#dialog-message');
-      utils.bind_hover($('#id_find'));
+      utils.bind_hover($('#id_add,#id_delete,#id_find'));
       nav_list.config.list_url = url.list;
       nav_list.config.list_func = init_list;
+      nav_list.config.del_func = func_delete;
       nav_list.config.search_param_func = get_search_param;
       nav_list.init();
     }

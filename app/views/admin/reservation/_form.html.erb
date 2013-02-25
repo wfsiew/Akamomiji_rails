@@ -2,28 +2,28 @@
   <table>
     <tr>
       <td valign="top" class="lbl">
-        <%= label_tag :reserve_date, 'Date', :class => 'label' %>
+        <%= label_tag :id_reserve_date, 'Date', :class => 'label' %>
       </td>
       <td>
-        <%= text_field_tag :reserve_date, fmt_date(@reservation.reserve_date), :id => 'id_date', :class => 'text date_input', :placeholder => 'dd-mm-YYYY' %>
+        <%= text_field_tag :reserve_date, fmt_date(@reservation.reserve_date), :id => 'id_reserve_date', :class => 'text date_input', :placeholder => 'dd-mm-YYYY' %>
       </td>
     </tr>
     <tr>
       <td valign="top" class="lbl">
-        <%= label_tag :reserve_time, 'Time', :class => 'label' %>
+        <%= label_tag :id_reserve_time, 'Time', :class => 'label' %>
       </td>
       <td>
-        <%= text_field_tag :reserve_time, fmt_miltime(@reservation.reserve_time), :id => 'id_time', :class => 'text', :placeholder => 'hh:mm',
+        <%= text_field_tag :reserve_time, fmt_miltime(@reservation.reserve_time), :id => 'id_reserve_time', :class => 'text', :placeholder => 'hh:mm',
                            :title => '24 hour time format, e.g 23:59' %>
       </td>
     </tr>
     <tr>
       <td valign="top" class="lbl">
-        <%= label_tag :name, 'Time', :class => 'label' %>
+        <%= label_tag :name, 'Name', :class => 'label' %>
       </td>
       <td>
         <%= text_field_tag :name, @reservation.name, :id => 'id_name', :class => 'text', :placeholder => 'enter name',
-                           :title => 'enter name' %>
+                           :title => 'enter name', :maxlength => 30 %>
       </td>
     </tr>
     <tr>
@@ -32,7 +32,7 @@
       </td>
       <td>
         <%= text_field_tag :pax, @reservation.pax, :id => 'id_pax', :class => 'text', :placeholder => 'enter pax',
-                           :title => 'enter pax' %>
+                           :title => 'enter pax', :maxlength => 10 %>
       </td>
     </tr>
     <tr>
@@ -41,16 +41,16 @@
       </td>
       <td>
         <%= text_field_tag :table, @reservation.table, :id => 'id_table', :class => 'text', :placeholder => 'enter table',
-                           :title => 'enter table' %>
+                           :title => 'enter table', :maxlength => 5 %>
       </td>
     </tr>
     <tr>
       <td valign="top" class="lbl">
-        <%= label_tag :phone_no, 'Time', :class => 'label' %>
+        <%= label_tag :phone_no, 'Phone No.', :class => 'label' %>
       </td>
       <td>
         <%= text_field_tag :name, @reservation.phone_no, :id => 'id_phone', :class => 'text', :placeholder => 'enter phone no.',
-                           :title => 'enter phone no.' %>
+                           :title => 'enter phone no.', :maxlength => 15 %>
       </td>
     </tr>
     <tr>
@@ -59,7 +59,7 @@
       </td>
       <td>
         <%= text_field_tag :remarks, @reservation.remarks, :id => 'id_remarks', :class => 'text', :placeholder => 'enter remarks',
-                           :title => 'enter remarks' %>
+                           :title => 'enter remarks', :maxlength => 30 %>
       </td>
     </tr>
     <tr>

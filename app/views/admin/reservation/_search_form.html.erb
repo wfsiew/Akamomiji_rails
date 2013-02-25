@@ -7,7 +7,7 @@
       <%= text_field_tag :reserve_date, nil, :id => 'id_date', :class => 'search date_input', :placeholder => 'dd-mm-YYYY' %>
     </td>
     <td>
-      <%= label_tag :id_time, 'Id', :class => 'label' %>
+      <%= label_tag :id_time, 'Time', :class => 'label' %>
     </td>
     <td>
       <%= text_field_tag :reserve_time, nil, :id => 'id_time', :class => 'search', :placeholder => 'hh:mm', 
@@ -28,7 +28,7 @@
     <td class="colspacing">
       <select id="id_location" class="select">
         <option value="0">All</option>
-        <%= options_for_select(@location_list %>
+        <%= options_for_select(@location_list) %>
       </select>
     </td>
   </tr>

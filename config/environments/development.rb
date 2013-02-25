@@ -34,4 +34,8 @@ AkamomijiRails::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  
+  config.log_level = :error
+
+  config.time_zone = 'Kuala Lumpur'
 end

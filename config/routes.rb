@@ -16,6 +16,8 @@ AkamomijiRails::Application.routes.draw do
       match 'edit(/:id)' => 'reservation#edit', as: :edit, via: :get
       match 'update(/:id)' => 'reservation#update', as: :update, via: :post
       match 'delete' => 'reservation#destroy', as: :delete, via: :post
+      match 'update/location(/:id)' => 'reservation#update_location', as: :update_location, via: :post
+      match 'update/status(/:id)' => 'reservation#update_status', as: :update_status, via: :post
     end
   end
   

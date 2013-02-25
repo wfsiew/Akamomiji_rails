@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   
   LAYOUT = {
     admin: 'admin',
+    list: 'list',
     user: 'user'
   }
   
@@ -60,7 +61,7 @@ class ApplicationController < ActionController::Base
   # Helper method.
   def fmt_miltime(t)
     if t.present?
-      t.strftime(ApplicationHelper.time_fmt)
+      ApplicationHelper.localtime(t).strftime(ApplicationHelper.time_fmt)
     end
   end
   

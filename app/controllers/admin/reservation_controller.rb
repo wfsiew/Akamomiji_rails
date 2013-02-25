@@ -7,6 +7,7 @@ class Admin::ReservationController < Admin::AdminController
   def index
     @data = ReservationHelper.get_all
     @location_list = ApplicationHelper::Location.data
+    @status_list = ApplicationHelper::ReservationStatus.data
     
     respond_to do |fmt|
       fmt.html { render layout: LAYOUT[:list] }
@@ -46,6 +47,9 @@ class Admin::ReservationController < Admin::AdminController
     else
       @data = ReservationHelper.get_filter_by(filters, pgnum, pgsize, sort)
     end
+    
+    @location_list = ApplicationHelper::Location.data
+    @status_list = ApplicationHelper::ReservationStatus.data
     
     respond_to do |fmt|
       fmt.html { render partial: 'list' }
@@ -96,6 +100,8 @@ class Admin::ReservationController < Admin::AdminController
   def edit
     @reservation = Reservation.find(params[:id])
     @form_id = 'edit-form'
+    @location_list = ApplicationHelper::Location.data
+    @status_list = ApplicationHelper::ReservationStatus.data
     
     respond_to do |fmt|
       fmt.html { render partial: 'form' }
@@ -124,6 +130,44 @@ class Admin::ReservationController < Admin::AdminController
       
     else
       render json: ReservationHelper.get_errors(o.errors)
+    end
+  end
+  
+  # POST /resv/update/location/1
+  def update_location
+    o = Reservation.find(params[:id])
+    location = o.location
+    
+    if o.update_attributes(location: params[:location])
+      render json: {
+        success: 1,
+        location: params[:location]
+      }
+      
+    else
+      render json: {
+        error: 1,
+        location: location.to_s
+      }
+    end
+  end
+  
+  # POST /resv/update/status/1
+  def update_status
+    o = Reservation.find(params[:id])
+    status = o.status
+    
+    if o.update_attributes(status: params[:status])
+      render json: {
+        success: 1,
+        status: params[:status]
+      }
+      
+    else
+      render json: {
+        error: 1,
+        status: status.to_s
+      }
     end
   end
   
