@@ -28,6 +28,7 @@ module AkamomijiRails
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
+    config.time_zone = 'Kuala Lumpur'
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
@@ -58,5 +59,14 @@ module AkamomijiRails
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    
+    config.assets.precompile += %w(loginui.css blitzer/jquery-ui-1.10.1.custom.min.css admin.css admin.js user.css user.js)
+    
+    jquitheme = %w(blitzer)
+    jquicss = 'jquery-ui-1.10.1.custom.min.css'
+    
+    jquitheme.each do |t|
+      config.assets.precompile << "#{t}/#{jquicss}"
+    end
   end
 end

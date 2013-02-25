@@ -1,5 +1,5 @@
 var theme = ( function() {
-    var default_theme = 'darkhive';
+    var default_theme = 'blitzer';
   
     function init() {
       var select_close = $('#theme_option .cancelicon');
@@ -8,7 +8,7 @@ var theme = ( function() {
       });
     
       $.themes.init({
-        themes : ['blitzer', 'darkhive', 'trontastic', 'humanity'],
+        themes : ['blitzer'],
         defaultTheme : default_theme,
         onSelect : reload_IE
       });

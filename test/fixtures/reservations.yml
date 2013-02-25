@@ -10,6 +10,7 @@ one:
   phone_no: MyString
   remarks: MyString
   location: 
+  status:
 
 two:
   id: MyString
@@ -21,3 +22,4 @@ two:
   phone_no: MyString
   remarks: MyString
   location: 
+  status:

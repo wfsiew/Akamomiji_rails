@@ -8,8 +8,9 @@ class CreateReservation < ActiveRecord::Migration
       t.string :pax, :null => false, :limit => 10
       t.string :table, :null => false, :limit => 5
       t.string :phone_no, :null => false, :limit => 15
-      t.string :remarks, :null => false, :limit => 30
+      t.string :remarks, :limit => 30
       t.integer :location, :null => false
+      t.integer :status, :null => false
     end
     
     change_column :reservation, :id, :string, :limit => 40
