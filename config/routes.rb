@@ -19,8 +19,17 @@ AkamomijiRails::Application.routes.draw do
       match 'update/location(/:id)' => 'reservation#update_location', as: :update_location, via: :post
       match 'update/status(/:id)' => 'reservation#update_status', as: :update_status, via: :post
     end
+    
+    scope 'staff', as: 'staff' do
+      match '' => 'staff#index', via: :get
+      match 'list' => 'staff#list', as: :list, via: [:get, :post]
+      match 'new' => 'staff#new', as: :new, via: :get
+      match 'create' => 'staff#create', as: :create, via: :post
+      match 'edit(/:id)' => 'staff#edit', as: :edit, via: :get
+      match 'update(/:id)' => 'staff#update', as: :update, via: :post
+      match 'delete' => 'staff#destroy', as: :delete, via: :post
+    end
   end
-  
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

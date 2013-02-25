@@ -185,7 +185,7 @@ class Admin::ReservationController < Admin::AdminController
     pgsize = params[:pgsize].blank? ? 0 : params[:pgsize].to_i
     ids = params[:id]
     
-    Reservation.delete_all(:id => ids)
+    Reservation.delete_all(id: ids)
     
     filters = {
       reserve_date: reserve_date,

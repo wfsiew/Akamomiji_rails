@@ -13,4 +13,5 @@
 //= require application
 //= require admin/base
 //= require admin/reservation
+//= require admin/staff
 // require_tree .

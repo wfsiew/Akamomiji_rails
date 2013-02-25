@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(:version => 20130225065734) do
 
   create_table "kitchen_sch", :force => true do |t|
     t.integer "category",               :null => false
-    t.string  "name",     :limit => 30, :null => false
+    t.string  "staff_id", :limit => 40, :null => false
     t.string  "position", :limit => 30, :null => false
     t.integer "location",               :null => false
     t.integer "week",                   :null => false
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(:version => 20130225065734) do
 
   create_table "service_sch", :force => true do |t|
     t.integer "category",               :null => false
-    t.string  "name",     :limit => 30, :null => false
+    t.string  "staff_id", :limit => 40, :null => false
     t.string  "position", :limit => 30, :null => false
     t.integer "location",               :null => false
     t.integer "week",                   :null => false

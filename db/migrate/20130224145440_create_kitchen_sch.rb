@@ -3,7 +3,7 @@ class CreateKitchenSch < ActiveRecord::Migration
     create_table :kitchen_sch, { :primary_key => 'id' } do |t|
       t.string :id, :null => false, :limit => 40
       t.integer :category, :null => false
-      t.string :name, :null => false, :limit => 30
+      t.string :staff_id, :null => false, :limit => 40
       t.string :position, :null => false, :limit => 30
       t.integer :location, :null => false
       t.integer :week, :null => false

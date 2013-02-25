@@ -19,7 +19,7 @@
     </tr>
     <tr>
       <td valign="top" class="lbl">
-        <%= label_tag :name, 'Name', :class => 'label' %>
+        <%= label_tag :id_name, 'Name', :class => 'label' %>
       </td>
       <td>
         <%= text_field_tag :name, @reservation.name, :id => 'id_name', :class => 'text', :placeholder => 'enter name',
@@ -28,7 +28,7 @@
     </tr>
     <tr>
       <td valign="top" class="lbl">
-        <%= label_tag :pax, 'Pax', :class => 'label' %>
+        <%= label_tag :id_pax, 'Pax', :class => 'label' %>
       </td>
       <td>
         <%= text_field_tag :pax, @reservation.pax, :id => 'id_pax', :class => 'text', :placeholder => 'enter pax',
@@ -37,7 +37,7 @@
     </tr>
     <tr>
       <td valign="top" class="lbl">
-        <%= label_tag :table, 'Table', :class => 'label' %>
+        <%= label_tag :id_table, 'Table', :class => 'label' %>
       </td>
       <td>
         <%= text_field_tag :table, @reservation.table, :id => 'id_table', :class => 'text', :placeholder => 'enter table',
@@ -46,16 +46,16 @@
     </tr>
     <tr>
       <td valign="top" class="lbl">
-        <%= label_tag :phone_no, 'Phone No.', :class => 'label' %>
+        <%= label_tag :id_phone, 'Phone No.', :class => 'label' %>
       </td>
       <td>
-        <%= text_field_tag :name, @reservation.phone_no, :id => 'id_phone', :class => 'text', :placeholder => 'enter phone no.',
+        <%= text_field_tag :phone_no, @reservation.phone_no, :id => 'id_phone', :class => 'text', :placeholder => 'enter phone no.',
                            :title => 'enter phone no.', :maxlength => 15 %>
       </td>
     </tr>
     <tr>
       <td valign="top" class="lbl">
-        <%= label_tag :remarks, 'Remarks', :class => 'label' %>
+        <%= label_tag :id_remarks, 'Remarks', :class => 'label' %>
       </td>
       <td>
         <%= text_field_tag :remarks, @reservation.remarks, :id => 'id_remarks', :class => 'text', :placeholder => 'enter remarks',
@@ -64,7 +64,7 @@
     </tr>
     <tr>
       <td valign="top" class="lbl">
-        <%= label_tag :location, 'Location', :class => 'label' %>
+        <%= label_tag :id_location, 'Location', :class => 'label' %>
       </td>
       <td>
         <select id="id_location" class="select">
@@ -75,7 +75,7 @@
     </tr>
     <tr>
       <td valign="top" class="lbl">
-        <%= label_tag :status, 'Status', :class => 'label' %>
+        <%= label_tag :id_status, 'Status', :class => 'label' %>
       </td>
       <td>
         <select id="id_status" class="select">
