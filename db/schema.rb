@@ -11,12 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130225065734) do
+ActiveRecord::Schema.define(:version => 20130226064220) do
+
+  create_table "job_position", :force => true do |t|
+    t.string "name", :limit => 30, :null => false
+  end
+
+  add_index "job_position", ["name"], :name => "name", :unique => true
 
   create_table "kitchen_sch", :force => true do |t|
     t.integer "category",               :null => false
     t.string  "staff_id", :limit => 40, :null => false
-    t.string  "position", :limit => 30, :null => false
     t.integer "location",               :null => false
     t.integer "week",                   :null => false
     t.integer "year",                   :null => false
@@ -44,7 +49,6 @@ ActiveRecord::Schema.define(:version => 20130225065734) do
   create_table "service_sch", :force => true do |t|
     t.integer "category",               :null => false
     t.string  "staff_id", :limit => 40, :null => false
-    t.string  "position", :limit => 30, :null => false
     t.integer "location",               :null => false
     t.integer "week",                   :null => false
     t.integer "year",                   :null => false
@@ -58,10 +62,11 @@ ActiveRecord::Schema.define(:version => 20130225065734) do
   end
 
   create_table "staff", :force => true do |t|
-    t.string  "name",       :limit => 30, :null => false
-    t.string  "contact_no", :limit => 15, :null => false
+    t.string  "name",            :limit => 30, :null => false
+    t.string  "contact_no",      :limit => 15, :null => false
     t.integer "status"
-    t.string  "remarks",    :limit => 50
+    t.string  "job_position_id", :limit => 40, :null => false
+    t.string  "remarks",         :limit => 50
   end
 
   create_table "user", :force => true do |t|

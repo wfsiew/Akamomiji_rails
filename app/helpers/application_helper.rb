@@ -190,4 +190,12 @@ module ApplicationHelper
   def self.time_fmt
     '%H:%M'
   end
+  
+  def self.week_data
+    (1..53).map { |o| [o.to_s, o] }
+  end
+  
+  def self.shift_data
+    [['A', 'A'], ['B', 'B'], ['C', 'C'], ['D', 'D'], ['E', 'E'], ['F', 'F']]
+  end
 end

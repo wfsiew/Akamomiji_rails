@@ -1,9 +1,9 @@
 class ServiceSch < ActiveRecord::Base
-  attr_accessible :category, :fri, :id, :location, :mon, :position, :sat, :staff_id, :sun, :thur, :tue, :wed, :week, :year
+  attr_accessible :category, :fri, :id, :location, :mon, :sat, :staff_id, :sun, :thur, :tue, :wed, :week, :year
   
   self.table_name = 'service_sch'
   
-  belongs_to :staff, :foreign_key => 'staff_id'
+  belongs_to :staff
   
   validates_presence_of :category, message: 'Category is required'
   validates_presence_of :location, message: 'Location is required'

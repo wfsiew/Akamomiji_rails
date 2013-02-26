@@ -1,0 +1,124 @@
+<%= form_tag('.', :id => @form_id, :class => 'save_form ui-widget-content ui-widget ui-corner-all') do %>
+  <table>
+    <tr>
+      <td valign="top" class="lbl">
+        <%= label_tag :id_category, 'Category', :class => 'label' %>
+      </td>
+      <td>
+        <select id="id_status" class="select">
+          <%= options_for_select(@category_list, 
+              @sch.category.blank? ? 1 : @sch.category) %>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="lbl">
+        <%= label_tag :id_staff, 'Staff', :class => 'label' %>
+      </td>
+      <td>
+        <%= text_field_tag :staff, @sch.staff.present? ? @sch.staff.name : nil, :id => 'id_staff', :class => 'text', :placeholder => 'search staff',
+                           :title => 'search staff' %>
+        <%= hidden_field_tag :staff_id, @sch.staff_id, :id => 'id_staff_id' %>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="lbl">
+        <%= label_tag :id_location, 'Location', :class => 'label' %>
+      </td>
+      <td>
+        <select id="id_location" class="select">
+          <%= options_for_select(@location_list, 
+              @sch.location.blank? ? 1 : @sch.location) %>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="lbl">
+        <%= label_tag :id_week, 'Week', :class => 'label' %>
+      </td>
+      <td>
+        <select id="id_week" class="select">
+          <option value="0">-- Select --</option>
+          <%= options_for_select(@week_list, 
+              @sch.week.blank? ? 0 : @sch.week) %>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <% days = ['', '', '', '', '', '', ''] %>
+      <% days = week_days_helper(@sch.week, @sch.year) if @sch.present? && @sch.week.present? && @sch.week != 0 %>
+      <td></td>
+      <td>
+        <table class="ui-state-highlight ui-corner-all tbl_days">
+          <tr>
+            <td>Mon</td>
+            <td>Tue</td>
+            <td>Wed</td>
+            <td>Thur</td>
+            <td>Fri</td>
+            <td>Sat</td>
+            <td>Sun</td>
+          </tr>
+          <tr>
+            <% (0..6).each do |k| %>
+            <td><span class="dis_date<%= k %>"><%= days[k] %></span></td>
+            <% end %>
+          </tr>
+          <tr>
+            <td>
+              <select id="id_mon">
+                <%= options_for_select(@shift_list,
+                    @sch.mon.blank? ? 1 : @sch.mon) %>
+              </select>
+            </td>
+            <td>
+              <select id="id_tue">
+                <%= options_for_select(@shift_list,
+                    @sch.tue.blank? ? 1 : @sch.tue) %>
+              </select>
+            </td>
+            <td>
+              <select id="id_wed">
+                <%= options_for_select(@shift_list,
+                    @sch.wed.blank? ? 1 : @sch.wed) %>
+              </select>
+            </td>
+            <td>
+              <select id="id_thur">
+                <%= options_for_select(@shift_list,
+                    @sch.thur.blank? ? 1 : @sch.thur) %>
+              </select>
+            </td>
+            <td>
+              <select id="id_fri">
+                <%= options_for_select(@shift_list,
+                    @sch.fri.blank? ? 1 : @sch.fri) %>
+              </select>
+            </td>
+            <td>
+              <select id="id_sat">
+                <%= options_for_select(@shift_list,
+                    @sch.sat.blank? ? 1 : @sch.sat) %>
+              </select>
+            </td>
+            <td>
+              <select id="id_sun">
+                <%= options_for_select(@shift_list,
+                    @sch.sun.blank? ? 1 : @sch.sun) %>
+              </select>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <div class="row_button">
+          <%= render 'shared/save_button' %>
+          <%= render 'shared/cancel_button' %>
+        </div>
+      </td>
+    </tr>
+  </table>
+<% end %>

@@ -1,0 +1,64 @@
+<% if @data.present? && @data[:list].any? %>
+  <table class="list_table">
+    <thead class="ui-widget-header">
+      <tr>
+        <th class="data chkbox"><input class="hdchk" type="checkbox" /></th>
+        <th class="data">
+          <div id="hd_week" class="sortheader hover">
+            <span class="colheader">Week</span>
+            <span class="sorticon"></span>
+          </div>
+        </th>
+        <th class="data">
+          <div id="hd_category" class="sortheader hover">
+            <span class="colheader">Category</span>
+            <span class="sorticon"></span>
+          </div>
+        </th>
+        <th class="data">
+          <div id="hd_s-name" class="sortheader hover">
+            <span class="colheader">Name</span>
+            <span class="sorticon"></span>
+          </div>
+        </th>
+        <th class="data">
+          <div id="hd_location" class="sortheader hover">
+            <span class="colheader">Location</span>
+            <span class="sorticon"></span>
+          </div>
+        </th>
+        <th class="data">Mon</th>
+        <th class="data">Tue</th>
+        <th class="data">Wed</th>
+        <th class="data">Thur</th>
+        <th class="data">Fri</th>
+        <th class="data">Sat</th>
+        <th class="data">Sun</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @data[:list].each do |o| %>
+      <tr id="tr_<%= o.id %>" class="<%= cycle("ui-state-active", "ui-state-default") %>">
+        <% days = week_days_helper(o.week, o.year) %>
+        <% shift = [o.mon, o.tue, o.wed, o.thur, o.fri, o.sat, o.sun] %>
+        <td class="data chkbox"><input class="chk" type="checkbox" /></td>
+        <td class="data"><%= o.week %></td>
+        <td class="data"><%= h o.category_str %></td>
+        <td class="data"><%= h o.staff.name if o.staff.present? %></td>
+        <td class="data">
+          <select class="select location">
+            <%= options_for_select(@location_list, 
+                o.location.blank? ? 1 : o.location) %>
+          </select>
+        </td>
+        <% (0..6).each do |k| %>
+        <td class="data">
+          <%= days[k] %> | <%= shift[k] %>
+        </td>
+        <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
+<input id="id_pg" type="hidden" value="<%= @data[:hasprev] %>,<%= @data[:hasnext] %>,<%= @data[:prevpage] %>,<%= @data[:nextpage] %>,<%= @data[:item_msg] %>,<%= @data[:sortcolumn] %>,<%= @data[:sortdir] %>" />

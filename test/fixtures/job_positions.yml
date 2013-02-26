@@ -3,15 +3,7 @@
 one:
   id: MyString
   name: MyString
-  contact_no: MyString
-  status: 1
-  job_position_id:
-  remarks: MyString
 
 two:
   id: MyString
   name: MyString
-  contact_no: MyString
-  status: 1
-  job_position_id:
-  remarks: MyString

@@ -207,4 +207,11 @@ class Admin::ReservationController < Admin::AdminController
       message: "#{ids.size} reservation(s) was successfully deleted."
     }
   end
+  
+  # GET /resv/find/name
+  def find_name
+    keyword = "%#{params[:term]}%"
+    n = Reservation.select(:name).where('name like ?', keyword).order(:name).all
+    render json: n.map { |o| { value: o[:name] } }
+  end
 end

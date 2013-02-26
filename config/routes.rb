@@ -18,6 +18,7 @@ AkamomijiRails::Application.routes.draw do
       match 'delete' => 'reservation#destroy', as: :delete, via: :post
       match 'update/location(/:id)' => 'reservation#update_location', as: :update_location, via: :post
       match 'update/status(/:id)' => 'reservation#update_status', as: :update_status, via: :post
+      match 'find/name' => 'reservation#find_name', as: :find_name, via: :get
     end
     
     scope 'staff', as: 'staff' do
@@ -28,6 +29,22 @@ AkamomijiRails::Application.routes.draw do
       match 'edit(/:id)' => 'staff#edit', as: :edit, via: :get
       match 'update(/:id)' => 'staff#update', as: :update, via: :post
       match 'delete' => 'staff#destroy', as: :delete, via: :post
+    end
+    
+    scope 'sch', as: 'sch' do
+      scope 'kitchen', as: 'kitchen' do
+        match '' => 'kitchen_sch#index', via: :get
+        match 'list' => 'kitchen_sch#list', as: :list, via: [:get, :post]
+        match 'new' => 'kitchen_sch#new', as: :new, via: :get
+        match 'create' => 'kitchen_sch#create', as: :create, via: :post
+        match 'edit(/:id)' => 'kitchen_sch#edit', as: :edit, via: :get
+        match 'update(/:id)' => 'kitchen_sch#update', as: :update, via: :post
+        match 'delete' => 'kitchen_sch#destroy', as: :delete, via: :post
+        match 'update/location(/:id)' => 'kitchen_sch#update_location', as: :update_location, via: :post
+        match 'week_days' => 'kitchen_sch#week_days', as: :week_days, via: [:get, :post]
+        match 'find/name' => 'kitchen_sch#find_name', as: :find_name, via: :get
+        match 'find/active/name' => 'kitchen_sch#find_active_name', as: :find_active_name, via: :get
+      end
     end
   end
   

@@ -1,14 +1,15 @@
-var reservation = ( function() {
+var kitchensch = ( function() {
     var url = {
-      add : '/admin/resv/new/',
-      create : '/admin/resv/create/',
-      edit : '/admin/resv/edit/',
-      update : '/admin/resv/update/',
-      del : '/admin/resv/delete/',
-      list : '/admin/resv/list/',
-      update_location : '/admin/resv/update/location/',
-      update_status : '/admin/resv/update/status/',
-      find_name : '/admin/resv/find/name/'
+      add : '/admin/sch/kitchen/new/',
+      create : '/admin/sch/kitchen/create/',
+      edit : '/admin/sch/kitchen/edit/',
+      update : '/admin/sch/kitchen/update/',
+      del : '/admin/sch/kitchen/delete/',
+      list : '/admin/sch/kitchen/list/',
+      update_location : '/admin/sch/kitchen/update/location/',
+      week_days : '/admin/sch/kitchen/week_days/',
+      find_name : '/admin/sch/kitchen/find/name/',
+      find_active_name : '/admin/sch/kitchen/find/active/name/'
     };
     
     var popup_dialog_opt = null;
@@ -16,7 +17,7 @@ var reservation = ( function() {
     function init_ui_opt() {
       popup_dialog_opt = {
         autoOpen : false,
-        width : 380,
+        width : 650,
         resizable : false,
         draggable : true,
         modal : false,
@@ -27,7 +28,14 @@ var reservation = ( function() {
     
     function show_form() {
       $('#dialog_add_body').load(url.add, function() {
-        $('.save_form .date_input').datepicker(utils.date_opt());
+        $('#id_staff').autocomplete({
+          source : url.find_active_name,
+          minLength : 2,
+          select : function(evt, ui) {
+            $('#id_staff_id').val(ui.item.id + "666");
+          }
+        });
+        $('#add-form').find('#id_week').change(load_days);
         $('.save_button.save').click(func_save);
         $('.save_button.cancel').click(func_cancel_add);
         utils.bind_hover($('.save_button'));
@@ -76,7 +84,11 @@ var reservation = ( function() {
                 url : '/assets/tpl/label_error.html',
                 ext : '.html'
               }).render(o);
-              $("#add-form input[name='" + e + "']").after(h);
+              if (e == 'week')
+                $('#add-form #id_' + e).after(h);
+                
+              else
+                $("#add-form input[name='" + e + "']").after(h);
             }
           }
         }
@@ -94,7 +106,14 @@ var reservation = ( function() {
 
       id = utils.get_itemid(id);
       $('#dialog_edit_body').load(url.edit + id, function() {
-        $('.save_form .date_input').datepicker(utils.date_opt());
+        $('#id_staff').autocomplete({
+          source : url.find_active_name,
+          minLength : 2,
+          select : function(evt, ui) {
+            $('#id_staff_id').val(ui.item.id);
+          }
+        });
+        $('#edit-form').find('#id_week').change(load_days);
         $('.save_button.save').click(function() {
           return func_update(id);
         });
@@ -126,7 +145,11 @@ var reservation = ( function() {
                 url : '/assets/tpl/label_error.html',
                 ext : '.html'
               }).render(o);
-              $("#edit-form input[name='" + e + "']").after(h);
+              if (e == 'week')
+                $('#edit-form #id_' + e).after(h);
+                
+              else
+                $("#edit-form input[name='" + e + "']").after(h);
             }
           }
         }
@@ -197,20 +220,6 @@ var reservation = ( function() {
           e.val(result.location);
       });
     }
-    
-    function func_update_status() {
-      var e = $(this);
-      var id = e.parent().parent().attr('id');
-      var data = {
-        status : e.val()
-      };
-      
-      id = utils.get_itemid(id);
-      $.post(url.update_status + id, data, function(result) {
-        if (result.error == 1)
-          e.val(result.status);
-      });
-    }
 
     function select_all() {
       var a = $(this).attr('checked');
@@ -220,20 +229,35 @@ var reservation = ( function() {
       else
         $('.chk').removeAttr('checked');
     }
+    
+    function load_days() {
+      var o = $(this);
+      var data = {
+        week : o.val()
+      };
+      $.post(url.week_days, data, function(result) {
+        var n = result.length;
+        for (var i = 0; i < n; i++) {
+          $('.dis_date' + i).html(result[i]);
+        }
+      });
+    }
 
     function get_data(t) {
       var form = (t == 'add' ? $('#add-form') : $('#edit-form'));
 
       var data = {
-        reserve_date : form.find('#id_reserve_date').val(),
-        reserve_time : form.find('#id_reserve_time').val(),
-        name : form.find('#id_name').val(),
-        pax : form.find('#id_pax').val(),
-        table : form.find('#id_table').val(),
-        phone_no : form.find('#id_phone').val(),
-        remarks : form.find('#id_remarks').val(),
+        category : form.find('#id_category').val(),
+        staff_id : form.find('#id_staff_id').val(),
         location : form.find('#id_location').val(),
-        status : form.find('#id_status').val()
+        week : form.find('#id_week').val(),
+        mon : form.find('#id_mon').val(),
+        tue : form.find('#id_tue').val(),
+        wed : form.find('#id_wed').val(),
+        thur : form.find('#id_thur').val(),
+        fri : form.find('#id_fri').val(),
+        sat : form.find('#id_sat').val(),
+        sun : form.find('#id_sun').val()
       };
 
       return data;
@@ -241,10 +265,10 @@ var reservation = ( function() {
     
     function get_search_param() {
       var param = {
-        reserve_date : $('#id_date').val(),
-        reserve_time : $('#id_time').val(),
+        category : $('#id_category').val(),
         name : $('#id_name').val(),
-        location : $('#id_location').val()
+        location : $('#id_location').val(),
+        week : $('#id_week').val()
       };
       
       return param;
@@ -266,7 +290,6 @@ var reservation = ( function() {
       });
       $('.sortheader').click(sort_list);
       $('.location').change(func_update_location);
-      $('.status').change(func_update_status);
     }
 
     function init() {
@@ -276,7 +299,6 @@ var reservation = ( function() {
         minLength : 2
       });
       $('#id_add').click(show_form);
-      $('.date_input').datepicker(utils.date_opt());
       $('#id_find').click(nav_list.show_list);
       $('#id_display').change(nav_list.show_list);
       $('#dialog-add').dialog(popup_dialog_opt);
@@ -291,7 +313,7 @@ var reservation = ( function() {
     }
     
     function load() {
-      return menu.get('/admin/resv/', init);
+      return menu.get('/admin/sch/kitchen/', init);
     }
     
     return {

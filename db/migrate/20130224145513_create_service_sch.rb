@@ -4,7 +4,6 @@ class CreateServiceSch < ActiveRecord::Migration
       t.string :id, :null => false, :limit => 40
       t.integer :category, :null => false
       t.string :staff_id, :null => false, :limit => 40
-      t.string :position, :null => false, :limit => 30
       t.integer :location, :null => false
       t.integer :week, :null => false
       t.integer :year, :null => false
