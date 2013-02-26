@@ -1,0 +1,45 @@
+<% if @data.present? && @data[:list].any? %>
+  <table class="list_table">
+    <thead class="ui-widget-header">
+      <tr>
+        <th class="data chkbox"><input class="hdchk" type="checkbox" /></th>
+        <th class="data">
+          <div id="hd_name" class="sortheader hover">
+            <span class="colheader">Name</span>
+            <span class="sorticon"></span>
+          </div>
+        </th>
+        <th class="data">
+          <div id="hd_contact_no" class="sortheader hover">
+            <span class="colheader">Contact No.</span>
+            <span class="sorticon"></span>
+          </div>
+        </th>
+        <th class="data">
+          <div id="hd_status" class="sortheader hover">
+            <span class="colheader">Status</span>
+            <span class="sorticon"></span>
+          </div>
+        </th>
+        <th class="data">
+          <div id="hd_remarks" class="sortheader hover">
+            <span class="colheader">Remarks</span>
+            <span class="sorticon"></span>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @data[:list].each do |o| %>
+      <tr id="tr_<%= o.id %>" class="<%= cycle("ui-state-active", "ui-state-default") %>">
+        <td class="data chkbox"><input class="chk" type="checkbox" /></td>
+        <td class="data"><%= h o.name %></td>
+        <td class="data"><%= h o.contact_no %></td>
+        <td class="data"><%= h o.status_str %></td>
+        <td class="data"><%= h o.remarks %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
+<input id="id_pg" type="hidden" value="<%= @data[:hasprev] %>,<%= @data[:hasnext] %>,<%= @data[:prevpage] %>,<%= @data[:nextpage] %>,<%= @data[:item_msg] %>,<%= @data[:sortcolumn] %>,<%= @data[:sortdir] %>" />

@@ -1,0 +1,51 @@
+<%= form_tag('.', :id => @form_id, :class => 'save_form ui-widget-content ui-widget ui-corner-all') do %>
+  <table>
+    <tr>
+      <td valign="top" class="lbl">
+        <%= label_tag :name, 'Name', :class => 'label' %>
+      </td>
+      <td>
+        <%= text_field_tag :name, @staff.name, :id => 'id_name', :class => 'text', :placeholder => 'enter name',
+                           :title => 'enter name', :maxlength => 30 %>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="lbl">
+        <%= label_tag :id_contact, 'Contact No.', :class => 'label' %>
+      </td>
+      <td>
+        <%= text_field_tag :contact_no, @staff.contact_no, :id => 'id_contact', :class => 'text', :placeholder => 'enter contact no.',
+                           :title => 'enter contact no.', :maxlength => 15 %>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="lbl">
+        <%= label_tag :id_status, 'Status', :class => 'label' %>
+      </td>
+      <td>
+        <select id="id_status" class="select">
+          <%= options_for_select(@status_list, 
+              @staff.status.blank? ? 1 : @staff.status) %>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="lbl">
+        <%= label_tag :remarks, 'Remarks', :class => 'label' %>
+      </td>
+      <td>
+        <%= text_field_tag :remarks, @staff.remarks, :id => 'id_remarks', :class => 'text', :placeholder => 'enter remarks',
+                           :title => 'enter remarks', :maxlength => 50 %>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <div class="row_button">
+          <%= render 'shared/save_button' %>
+          <%= render 'shared/cancel_button' %>
+        </div>
+      </td>
+    </tr>
+  </table>
+<% end %>
