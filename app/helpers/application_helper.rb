@@ -159,6 +159,31 @@ module ApplicationHelper
       end
     end
   end
+  
+  class UserType
+    def self.data
+      [['Admin', 1], ['Management', 2], ['Supervisor', 3], ['User', 4]]
+    end
+    
+    def self.str(i)
+      case i
+      when 1
+        'Admin'
+        
+      when 2
+        'Management'
+        
+      when 3
+        'Supervisor'
+        
+      when 4
+        'User'
+        
+      else
+        ''
+      end
+    end
+  end
 
   class StaffStatus
     def self.data

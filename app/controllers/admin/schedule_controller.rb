@@ -16,6 +16,8 @@ class Admin::ScheduleController < Admin::AdminController
     render json: o
   end
   
+  protected
+  
   def week_days_helper(week, year)
     o = []
     
@@ -32,8 +34,6 @@ class Admin::ScheduleController < Admin::AdminController
     
     o
   end
-  
-  protected
   
   def get_job_position(id)
     s = ''
