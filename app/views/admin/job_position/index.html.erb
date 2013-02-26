@@ -1,0 +1,13 @@
+<% @title = 'Job Position' %>
+<% @dialog_title = 'Job Position' %>
+<% @dialog_add_title = 'Add New Job Position' %>
+<% @dialog_edit_title = 'Edit Job Position' %>
+<% content_for :search_form do %>
+  <%= render 'search_form' %>
+<% end %>
+<% content_for :content_list do %>
+  <%= render 'list' %>
+<% end %>
+<% content_for :dialog do %>
+  <%= render 'shared/dialog_save' %>
+<% end %>

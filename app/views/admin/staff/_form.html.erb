@@ -31,6 +31,18 @@
     </tr>
     <tr>
       <td valign="top" class="lbl">
+        <%= label :id_job_position_id, 'Job Position', :class => 'label' %>
+      </td>
+      <td>
+        <select id="id_job_position_id" class="select">
+          <option value="0">-- Select --</option>
+          <%= options_from_collection_for_select(@job_position_list, 
+              :id, :name, @staff.job_position_id.blank? ? '0' : @staff.job_position_id) %>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="lbl">
         <%= label_tag :remarks, 'Remarks', :class => 'label' %>
       </td>
       <td>

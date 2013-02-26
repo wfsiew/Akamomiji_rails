@@ -1,13 +1,13 @@
 require 'securerandom'
 
-class Admin::KitchenSchController < Admin::ScheduleController
+class Admin::ServiceSchController < Admin::ScheduleController
   
-  # GET /sch/kitchen
-  # GET /sch/kitchen.json
+  # GET /sch/service
+  # GET /sch/service.json
   def index
-    @data = KitchenSchHelper.get_all
+    @data = ServiceSchHelper.get_all
     @location_list = ApplicationHelper::Location.data
-    @category_list = KitchenSch.category_data
+    @category_list = ServiceSch.category_data
     @week_list = ApplicationHelper.week_data
     
     respond_to do |fmt|
@@ -16,8 +16,8 @@ class Admin::KitchenSchController < Admin::ScheduleController
     end
   end
   
-  # GET /sch/kitchen/list
-  # GET /sch/kitchen/list.json
+  # GET /sch/service/list
+  # GET /sch/service/list.json
   def list
     category = params[:category].blank? ? 0 : params[:category].to_i
     name = params[:name].blank? ? '' : params[:name]
@@ -26,9 +26,9 @@ class Admin::KitchenSchController < Admin::ScheduleController
     
     pgnum = params[:pgnum].blank? ? 1 : params[:pgnum].to_i
     pgsize = params[:pgsize].blank? ? 0 : params[:pgsize].to_i
-    sortcolumn = params[:sortcolumn].blank? ? KitchenSchHelper::DEFAULT_SORT_COLUMN 
+    sortcolumn = params[:sortcolumn].blank? ? ServiceSchHelper::DEFAULT_SORT_COLUMN 
                                             : params[:sortcolumn]
-    sortdir = params[:sortdir].blank? ? KitchenSchHelper::DEFAULT_SORT_DIR : params[:sortdir]
+    sortdir = params[:sortdir].blank? ? ServiceSchHelper::DEFAULT_SORT_DIR : params[:sortdir]
     
     sort = ApplicationHelper::Sort.new(sortcolumn, sortdir)
     
@@ -40,14 +40,14 @@ class Admin::KitchenSchController < Admin::ScheduleController
     }
     
     if category == 0 && name.blank? && location == 0 && week == 0
-      @data = KitchenSchHelper.get_all(pgnum, pgsize, sort)
+      @data = ServiceSchHelper.get_all(pgnum, pgsize, sort)
       
     else
-      @data = KitchenSchHelper.get_filter_by(filters, pgnum, pgsize, sort)
+      @data = ServiceSchHelper.get_filter_by(filters, pgnum, pgsize, sort)
     end
     
     @location_list = ApplicationHelper::Location.data
-    @category_list = KitchenSch.category_data
+    @category_list = ServiceSch.category_data
     
     respond_to do |fmt|
       fmt.html { render partial: 'list' }
@@ -55,13 +55,13 @@ class Admin::KitchenSchController < Admin::ScheduleController
     end
   end
   
-  # GET /sch/kitchen/new
-  # GET /sch/kitchen/new.json
+  # GET /sch/service/new
+  # GET /sch/service/new.json
   def new
-    @sch = KitchenSch.new
+    @sch = ServiceSch.new
     @form_id = 'add-form'
     @location_list = ApplicationHelper::Location.data
-    @category_list = KitchenSch.category_data
+    @category_list = ServiceSch.category_data
     @week_list = ApplicationHelper.week_data
     @shift_list = ApplicationHelper.shift_data
     
@@ -71,9 +71,9 @@ class Admin::KitchenSchController < Admin::ScheduleController
     end
   end
   
-  # POST /sch/kitchen/create
+  # POST /sch/service/create
   def create
-    o = KitchenSch.new(id: SecureRandom.uuid, category: params[:category], staff_id: params[:staff_id],
+    o = ServiceSch.new(id: SecureRandom.uuid, category: params[:category], staff_id: params[:staff_id],
                        location: params[:location], week: params[:week], year: DateTime.now.year, 
                        mon: params[:mon], tue: params[:tue], wed: params[:wed], thur: params[:thur], 
                        fri: params[:fri], sat: params[:sat], sun: params[:sun])
@@ -81,21 +81,21 @@ class Admin::KitchenSchController < Admin::ScheduleController
     if o.save
       render json: {
         success: 1,
-        message: 'Kitchen Schedule was successfully created.'
+        message: 'Service Schedule was successfully created.'
       }
       
     else
-      render json: KitchenSchHelper.get_errors(o.errors)
+      render json: ServiceSchHelper.get_errors(o.errors)
     end
   end
   
-  # GET /sch/kitchen/edit/1
-  # GET /sch/kitchen/edit/1.json
+  # GET /sch/service/edit/1
+  # GET /sch/service/edit/1.json
   def edit
-    @sch = KitchenSch.find(params[:id])
+    @sch = ServiceSch.find(params[:id])
     @form_id = 'edit-form'
     @location_list = ApplicationHelper::Location.data
-    @category_list = KitchenSch.category_data
+    @category_list = ServiceSch.category_data
     @week_list = ApplicationHelper.week_data
     @shift_list = ApplicationHelper.shift_data
     
@@ -105,9 +105,9 @@ class Admin::KitchenSchController < Admin::ScheduleController
     end
   end
   
-  # POST /sch/kitchen/update/1
+  # POST /sch/service/update/1
   def update
-    o = KitchenSch.find(params[:id])
+    o = ServiceSch.find(params[:id])
     
     if o.update_attributes(category: params[:category], staff_id: params[:staff_id],
       location: params[:location], week: params[:week], year: DateTime.now.year, 
@@ -115,17 +115,17 @@ class Admin::KitchenSchController < Admin::ScheduleController
       fri: params[:fri], sat: params[:sat], sun: params[:sun])
       render json: {
         success: 1,
-        message: 'Kitchen Schedule was successfully updated.'
+        message: 'Service Schedule was successfully updated.'
       }
       
     else
-      render json: KitchenSchHelper.get_errors(o.errors)
+      render json: ServiceSchHelper.get_errors(o.errors)
     end
   end
   
-  # POST /sch/kitchen/update/location/1
+  # POST /sch/service/update/location/1
   def update_location
-    o = KitchenSch.find(params[:id])
+    o = ServiceSch.find(params[:id])
     location = o.location
     
     if o.update_attributes(location: params[:location])
@@ -142,7 +142,7 @@ class Admin::KitchenSchController < Admin::ScheduleController
     end
   end
   
-  # POST /sch/kitchen/delete
+  # POST /sch/service/delete
   def destroy
     category = params[:category].blank? ? 0 : params[:category].to_i
     name = params[:name].blank? ? '' : params[:name]
@@ -153,7 +153,7 @@ class Admin::KitchenSchController < Admin::ScheduleController
     pgsize = params[:pgsize].blank? ? 0 : params[:pgsize].to_i
     ids = params[:id]
     
-    KitchenSch.delete_all(id: ids)
+    ServiceSch.delete_all(id: ids)
     
     filters = {
       category: category,
@@ -163,23 +163,23 @@ class Admin::KitchenSchController < Admin::ScheduleController
     }
     
     if category == 0 && name.blank? && location == 0 && week == 0
-      itemscount = KitchenSchHelper.item_message(nil, pgnum, pgsize)
+      itemscount = ServiceSchHelper.item_message(nil, pgnum, pgsize)
       
     else
-      itemscount = KitchenSchHelper.item_message(filters, pgnum, pgsize)
+      itemscount = ServiceSchHelper.item_message(filters, pgnum, pgsize)
     end
     
     render json: {
       success: 1,
       itemscount: itemscount,
-      message: "#{ids.size} Kitchen Schedule(s) was successfully deleted."
+      message: "#{ids.size} Service Schedule(s) was successfully deleted."
     }
   end
   
-  # GET /sch/kitchen/find/name
+  # GET /sch/service/find/name
   def find_name
     keyword = "%#{params[:term]}%"
-    q = KitchenSch.joins('inner join staff s on kitchen_sch.staff_id = s.id')
+    q = ServiceSch.joins('inner join staff s on service_sch.staff_id = s.id')
     q = q.where('s.name like ?', keyword)
     n = q.select('s.name').order('s.name').all
     render json: n.map { |o| { value: o[:name] } }

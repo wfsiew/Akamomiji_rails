@@ -1,19 +1,20 @@
-var staff = ( function() {
+var job = ( function() {
     var url = {
-      add : '/admin/staff/new/',
-      create : '/admin/staff/create/',
-      edit : '/admin/staff/edit/',
-      update : '/admin/staff/update/',
-      del : '/admin/staff/delete/',
-      list : '/admin/staff/list/'
+      add : '/admin/job/new/',
+      create : '/admin/job/create/',
+      edit : '/admin/job/edit/',
+      update : '/admin/job/update/',
+      del : '/admin/job/delete/',
+      list : '/admin/job/list/',
+      find_name : '/admin/job/find/name/'
     };
-    
+
     var popup_dialog_opt = null;
 
     function init_ui_opt() {
       popup_dialog_opt = {
         autoOpen : false,
-        width : 380,
+        width : 350,
         resizable : false,
         draggable : true,
         modal : false,
@@ -21,7 +22,7 @@ var staff = ( function() {
         zIndex : 1000
       };
     }
-    
+
     function show_form() {
       $('#dialog_add_body').load(url.add, function() {
         $('.save_button.save').click(func_save);
@@ -45,7 +46,7 @@ var staff = ( function() {
       $('#dialog-add').dialog('close');
       return false;
     }
-    
+
     function func_cancel_edit() {
       $('#dialog-edit').dialog('close');
       return false;
@@ -72,11 +73,7 @@ var staff = ( function() {
                 url : '/assets/tpl/label_error.html',
                 ext : '.html'
               }).render(o);
-              if (e == 'job_position_id')
-                $('#add-form #id_' + e).after(h);
-                
-              else
-                $("#add-form input[name='" + e + "']").after(h);
+              $("#add-form input[name='" + e + "']").after(h);
             }
           }
         }
@@ -125,11 +122,7 @@ var staff = ( function() {
                 url : '/assets/tpl/label_error.html',
                 ext : '.html'
               }).render(o);
-              if (e == 'job_position_id')
-                $('#edit-form #id_' + e).after(h);
-                
-              else
-                $("#edit-form input[name='" + e + "']").after(h);
+              $("#edit-form input[name='" + e + "']").after(h);
             }
           }
         }
@@ -200,30 +193,17 @@ var staff = ( function() {
       var form = (t == 'add' ? $('#add-form') : $('#edit-form'));
 
       var data = {
-        name : form.find('#id_name').val(),
-        contact_no : form.find('#id_contact').val(),
-        status : form.find('#id_status').val(),
-        job_position_id : form.find('#id_job_position_id').val(),
-        remarks : form.find('#id_remarks').val()
+        name : form.find('#id_name').val()
       };
 
       return data;
-    }
-    
-    function get_search_param() {
-      var param = {
-        name : encodeURIComponent($('#id_name').val()),
-        status : $('#id_status').val()
-      };
-      
-      return param;
     }
     
     function sort_list() {
       var s = sort.set_sort_css($(this));
       nav_list.set_sort(s);
     }
-    
+
     function init_list() {
       $('.hdchk').click(select_all);
       utils.bind_hoverlist($('.list_table tbody tr'));
@@ -238,9 +218,15 @@ var staff = ( function() {
 
     function init() {
       init_ui_opt();
+      $('#id_query').autocomplete({
+        source : url.find_name,
+        minLength : 2
+      });
       $('#id_add').click(show_form);
       $('#id_find').click(nav_list.show_list);
       $('#id_display').change(nav_list.show_list);
+      $('#id_query').keypress(nav_list.query_keypress);
+      $('#id_query').keyup(nav_list.query_keyup);
       $('#dialog-add').dialog(popup_dialog_opt);
       $('#dialog-edit').dialog(popup_dialog_opt);
       utils.init_alert_dialog('#dialog-message');
@@ -248,14 +234,13 @@ var staff = ( function() {
       nav_list.config.list_url = url.list;
       nav_list.config.list_func = init_list;
       nav_list.config.del_func = func_delete;
-      nav_list.config.search_param_func = get_search_param;
       nav_list.init();
     }
-    
+
     function load() {
-      return menu.get('/admin/staff/', init);
+      return menu.get('/admin/job/', init);
     }
-    
+
     return {
       load : load
     };

@@ -52,6 +52,7 @@ class Admin::StaffController < Admin::AdminController
     @staff = Staff.new
     @form_id = 'add-form'
     @status_list = ApplicationHelper::StaffStatus.data
+    @job_position_list = JobPosition.order(:name).all
     
     respond_to do |fmt|
       fmt.html { render partial: 'form' }
@@ -62,7 +63,8 @@ class Admin::StaffController < Admin::AdminController
   # POST /staff/create
   def create
     o = Staff.new(id: SecureRandom.uuid, name: params[:name], contact_no: params[:contact_no],
-                  status: params[:status], remarks: params[:remarks])
+                  status: params[:status], job_position_id: params[:job_position_id], 
+                  remarks: params[:remarks])
                   
     if o.save
       render json: {
@@ -81,6 +83,7 @@ class Admin::StaffController < Admin::AdminController
     @staff = Staff.find(params[:id])
     @form_id = 'edit-form'
     @status_list = ApplicationHelper::StaffStatus.data
+    @job_position_list = JobPosition.order(:name).all
     
     respond_to do |fmt|
       fmt.html { render partial: 'form' }
@@ -93,7 +96,8 @@ class Admin::StaffController < Admin::AdminController
     o = Staff.find(params[:id])
     
     if o.update_attributes(name: params[:name], contact_no: params[:contact_no],
-      status: params[:status], remarks: params[:remarks])
+      status: params[:status], job_position_id: params[:job_position_id], 
+      remarks: params[:remarks])
       render json: {
         success: 1,
         message: 'Staff was successfully updated.'

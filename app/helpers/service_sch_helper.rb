@@ -1,10 +1,11 @@
-module KitchenSchHelper
+module ServiceSchHelper
+  
   DEFAULT_SORT_COLUMN = 'week'
   DEFAULT_SORT_DIR = 'ASC'
   
   def self.get_all(pagenum = 1, pagesize = ApplicationHelper::Pager.default_page_size,
     sort = ApplicationHelper::Sort.new(DEFAULT_SORT_COLUMN, DEFAULT_SORT_DIR))
-    total = KitchenSch.count
+    total = ServiceSch.count
     pager = ApplicationHelper::Pager.new(total, pagenum, pagesize)
     order = sort.to_s
     
@@ -15,7 +16,7 @@ module KitchenSchHelper
       criteria = get_join({}, sort)
       
     else
-      criteria = KitchenSch
+      criteria = ServiceSch
     end
     
     list = criteria.order(order).all(offset: pager.lower_bound, limit: pager.pagesize)
@@ -59,7 +60,7 @@ module KitchenSchHelper
   def self.item_message(filters, pagenum, pagesize)
     total = 0
     if filters.blank?
-      total = KitchenSch.count
+      total = ServiceSch.count
       pager = ApplicationHelper::Pager.new(total, pagenum, pagesize)
       return pager.item_message
       
@@ -81,7 +82,7 @@ module KitchenSchHelper
       criteria = get_join(filters, sort)
     end
     
-    criteria = KitchenSch if criteria.blank?
+    criteria = ServiceSch if criteria.blank?
     
     if filters[:category] != 0
       criteria = criteria.where('category = ?', filters[:category])
@@ -107,7 +108,7 @@ module KitchenSchHelper
     
     if filters.any?
       if filters[:name].present?
-        q = KitchenSch.joins('inner join staff s on kitchen_sch.staff_id = s.id')
+        q = ServiceSch.joins('inner join staff s on service_sch.staff_id = s.id')
         joinhash[:name] = true
       end
     end
@@ -115,7 +116,7 @@ module KitchenSchHelper
     if sort.present?
       if sort.column == 's.name'
         if !joinhash.has_key?(:name)
-          q = KitchenSch.joins('left outer join staff s on kitchen_sch.staff_id = s.id')
+          q = ServiceSch.joins('left outer join staff s on service_sch.staff_id = s.id')
         end
       end
     end

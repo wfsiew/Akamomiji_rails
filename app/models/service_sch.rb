@@ -10,4 +10,21 @@ class ServiceSch < ActiveRecord::Base
   validates_presence_of :staff_id, message: 'Staff ID is required'
   validates_presence_of :week, message: 'Week is required'
   validates_presence_of :year, message: 'Year is required'
+  
+  def self.category_data
+    [['Service', 1], ['Part-Timer', 2]]
+  end
+  
+  def category_str
+    case self.category
+    when 1
+      'Service'
+      
+    when 2
+      'Part-Timer'
+      
+    else
+      ''
+    end
+  end
 end

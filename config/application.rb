@@ -62,7 +62,7 @@ module AkamomijiRails
     
     config.assets.precompile += %w(loginui.css blitzer/jquery-ui-1.10.1.custom.min.css admin.css admin.js user.css user.js)
     
-    jquitheme = %w(blitzer)
+    jquitheme = %w(blitzer ui-lightness)
     jquicss = 'jquery-ui-1.10.1.custom.min.css'
     
     jquitheme.each do |t|

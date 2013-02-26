@@ -7,9 +7,9 @@ var kitchensch = ( function() {
       del : '/admin/sch/kitchen/delete/',
       list : '/admin/sch/kitchen/list/',
       update_location : '/admin/sch/kitchen/update/location/',
-      week_days : '/admin/sch/kitchen/week_days/',
+      week_days : '/admin/sch/week_days/',
       find_name : '/admin/sch/kitchen/find/name/',
-      find_active_name : '/admin/sch/kitchen/find/active/name/'
+      find_active_name : '/admin/sch/find/active/name/'
     };
     
     var popup_dialog_opt = null;
@@ -32,9 +32,13 @@ var kitchensch = ( function() {
           source : url.find_active_name,
           minLength : 2,
           select : function(evt, ui) {
-            $('#id_staff_id').val(ui.item.id + "666");
+            $('#id_staff_id').val(ui.item.id);
           }
-        });
+        }).data('ui-autocomplete')._renderItem = function(ul, item) {
+           return $('<li>')
+             .append('<a>' + item.label + ' (' + item.job + ')</a>')
+             .appendTo(ul);
+        };
         $('#add-form').find('#id_week').change(load_days);
         $('.save_button.save').click(func_save);
         $('.save_button.cancel').click(func_cancel_add);
@@ -112,7 +116,11 @@ var kitchensch = ( function() {
           select : function(evt, ui) {
             $('#id_staff_id').val(ui.item.id);
           }
-        });
+        }).data('ui-autocomplete')._renderItem = function(ul, item) {
+           return $('<li>')
+             .append('<a>' + item.label + ' (' + item.job + ')</a>')
+             .appendTo(ul);
+        };
         $('#edit-form').find('#id_week').change(load_days);
         $('.save_button.save').click(function() {
           return func_update(id);
@@ -245,12 +253,13 @@ var kitchensch = ( function() {
 
     function get_data(t) {
       var form = (t == 'add' ? $('#add-form') : $('#edit-form'));
+      var week = form.find('#id_week').val();
 
       var data = {
         category : form.find('#id_category').val(),
         staff_id : form.find('#id_staff_id').val(),
         location : form.find('#id_location').val(),
-        week : form.find('#id_week').val(),
+        week : week == '0' ? '' : week,
         mon : form.find('#id_mon').val(),
         tue : form.find('#id_tue').val(),
         wed : form.find('#id_wed').val(),

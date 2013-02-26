@@ -1,11 +1,15 @@
-var staff = ( function() {
+var servicesch = ( function() {
     var url = {
-      add : '/admin/staff/new/',
-      create : '/admin/staff/create/',
-      edit : '/admin/staff/edit/',
-      update : '/admin/staff/update/',
-      del : '/admin/staff/delete/',
-      list : '/admin/staff/list/'
+      add : '/admin/sch/service/new/',
+      create : '/admin/sch/service/create/',
+      edit : '/admin/sch/service/edit/',
+      update : '/admin/sch/service/update/',
+      del : '/admin/sch/service/delete/',
+      list : '/admin/sch/service/list/',
+      update_location : '/admin/sch/service/update/location/',
+      week_days : '/admin/sch/week_days/',
+      find_name : '/admin/sch/service/find/name/',
+      find_active_name : '/admin/sch/find/active/name/'
     };
     
     var popup_dialog_opt = null;
@@ -13,7 +17,7 @@ var staff = ( function() {
     function init_ui_opt() {
       popup_dialog_opt = {
         autoOpen : false,
-        width : 380,
+        width : 650,
         resizable : false,
         draggable : true,
         modal : false,
@@ -24,6 +28,18 @@ var staff = ( function() {
     
     function show_form() {
       $('#dialog_add_body').load(url.add, function() {
+        $('#id_staff').autocomplete({
+          source : url.find_active_name,
+          minLength : 2,
+          select : function(evt, ui) {
+            $('#id_staff_id').val(ui.item.id);
+          }
+        }).data('ui-autocomplete')._renderItem = function(ul, item) {
+           return $('<li>')
+             .append('<a>' + item.label + ' (' + item.job + ')</a>')
+             .appendTo(ul);
+        };
+        $('#add-form').find('#id_week').change(load_days);
         $('.save_button.save').click(func_save);
         $('.save_button.cancel').click(func_cancel_add);
         utils.bind_hover($('.save_button'));
@@ -72,7 +88,7 @@ var staff = ( function() {
                 url : '/assets/tpl/label_error.html',
                 ext : '.html'
               }).render(o);
-              if (e == 'job_position_id')
+              if (e == 'week')
                 $('#add-form #id_' + e).after(h);
                 
               else
@@ -94,6 +110,18 @@ var staff = ( function() {
 
       id = utils.get_itemid(id);
       $('#dialog_edit_body').load(url.edit + id, function() {
+        $('#id_staff').autocomplete({
+          source : url.find_active_name,
+          minLength : 2,
+          select : function(evt, ui) {
+            $('#id_staff_id').val(ui.item.id);
+          }
+        }).data('ui-autocomplete')._renderItem = function(ul, item) {
+           return $('<li>')
+             .append('<a>' + item.label + ' (' + item.job + ')</a>')
+             .appendTo(ul);
+        };
+        $('#edit-form').find('#id_week').change(load_days);
         $('.save_button.save').click(function() {
           return func_update(id);
         });
@@ -125,7 +153,7 @@ var staff = ( function() {
                 url : '/assets/tpl/label_error.html',
                 ext : '.html'
               }).render(o);
-              if (e == 'job_position_id')
+              if (e == 'week')
                 $('#edit-form #id_' + e).after(h);
                 
               else
@@ -186,6 +214,20 @@ var staff = ( function() {
         }
       });
     }
+    
+    function func_update_location() {
+      var e = $(this);
+      var id = e.parent().parent().attr('id');
+      var data = {
+        location : e.val()
+      };
+      
+      id = utils.get_itemid(id);
+      $.post(url.update_location + id, data, function(result) {
+        if (result.error == 1)
+          e.val(result.location);
+      });
+    }
 
     function select_all() {
       var a = $(this).attr('checked');
@@ -195,16 +237,36 @@ var staff = ( function() {
       else
         $('.chk').removeAttr('checked');
     }
+    
+    function load_days() {
+      var o = $(this);
+      var data = {
+        week : o.val()
+      };
+      $.post(url.week_days, data, function(result) {
+        var n = result.length;
+        for (var i = 0; i < n; i++) {
+          $('.dis_date' + i).html(result[i]);
+        }
+      });
+    }
 
     function get_data(t) {
       var form = (t == 'add' ? $('#add-form') : $('#edit-form'));
+      var week = form.find('#id_week').val();
 
       var data = {
-        name : form.find('#id_name').val(),
-        contact_no : form.find('#id_contact').val(),
-        status : form.find('#id_status').val(),
-        job_position_id : form.find('#id_job_position_id').val(),
-        remarks : form.find('#id_remarks').val()
+        category : form.find('#id_category').val(),
+        staff_id : form.find('#id_staff_id').val(),
+        location : form.find('#id_location').val(),
+        week : week == '0' ? '' : week,
+        mon : form.find('#id_mon').val(),
+        tue : form.find('#id_tue').val(),
+        wed : form.find('#id_wed').val(),
+        thur : form.find('#id_thur').val(),
+        fri : form.find('#id_fri').val(),
+        sat : form.find('#id_sat').val(),
+        sun : form.find('#id_sun').val()
       };
 
       return data;
@@ -212,8 +274,10 @@ var staff = ( function() {
     
     function get_search_param() {
       var param = {
-        name : encodeURIComponent($('#id_name').val()),
-        status : $('#id_status').val()
+        category : $('#id_category').val(),
+        name : $('#id_name').val(),
+        location : $('#id_location').val(),
+        week : $('#id_week').val()
       };
       
       return param;
@@ -234,10 +298,15 @@ var staff = ( function() {
         }
       });
       $('.sortheader').click(sort_list);
+      $('.location').change(func_update_location);
     }
 
     function init() {
       init_ui_opt();
+      $('#id_name').autocomplete({
+        source : url.find_name,
+        minLength : 2
+      });
       $('#id_add').click(show_form);
       $('#id_find').click(nav_list.show_list);
       $('#id_display').change(nav_list.show_list);
@@ -253,7 +322,7 @@ var staff = ( function() {
     }
     
     function load() {
-      return menu.get('/admin/staff/', init);
+      return menu.get('/admin/sch/service/', init);
     }
     
     return {

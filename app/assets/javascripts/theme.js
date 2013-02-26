@@ -8,7 +8,7 @@ var theme = ( function() {
       });
     
       $.themes.init({
-        themes : ['blitzer'],
+        themes : ['blitzer', 'uilightness'],
         defaultTheme : default_theme,
         onSelect : reload_IE
       });
