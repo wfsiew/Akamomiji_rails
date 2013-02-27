@@ -15,6 +15,7 @@
             <span class="sorticon"></span>
           </div>
         </th>
+        <th class="data">Job Position</th>
         <th class="data">
           <div id="hd_status" class="sortheader hover">
             <span class="colheader">Status</span>
@@ -35,6 +36,7 @@
         <td class="data chkbox"><input class="chk" type="checkbox" /></td>
         <td class="data"><%= h o.name %></td>
         <td class="data"><%= h o.contact_no %></td>
+        <td class="data"><%= h o.job_position.name if o.job_position.present? %>
         <td class="data"><%= h o.status_str %></td>
         <td class="data"><%= h o.remarks %></td>
       </tr>
