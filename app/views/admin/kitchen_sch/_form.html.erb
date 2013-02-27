@@ -20,9 +20,9 @@
           <option value="">-- Select --</option>
           <% @staff_list.each do |o| %>
           <% if @sch.staff_id == o.id %>
-          <option selected="selected" value="<%= o.id %>"><%= h o.name %> (<%= h o.job_position.name %>)</option>
+          <option selected="selected" value="<%= o.id %>"><%= h o.name %> (<%= h o.job_position.name if o.job_position.present? %>)</option>
           <% else %>
-          <option value="<%= o.id %>"><%= h o.name %> (<%= h o.job_position.name %>)</option>
+          <option value="<%= o.id %>"><%= h o.name %> (<%= h o.job_position.name if o.job_position.present? %>)</option>
           <% end %>
           <% end %>
         </select>
