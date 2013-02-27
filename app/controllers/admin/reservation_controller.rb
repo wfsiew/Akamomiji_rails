@@ -26,6 +26,10 @@ class Admin::ReservationController < Admin::AdminController
     reserve_date = Date.strptime(_reserve_date, ApplicationHelper.date_fmt) if _reserve_date.present?
     reserve_time = Time.strptime(_reserve_time, ApplicationHelper.time_fmt) if _reserve_time.present?
     
+    if reserve_time.present?
+      reserve_time = ApplicationHelper.to_localtime(DateTime.now.to_date, reserve_time)
+    end
+    
     pgnum = params[:pgnum].blank? ? 1 : params[:pgnum].to_i
     pgsize = params[:pgsize].blank? ? 0 : params[:pgsize].to_i
     sortcolumn = params[:sortcolumn].blank? ? ReservationHelper::DEFAULT_SORT_COLUMN 
@@ -188,6 +192,10 @@ class Admin::ReservationController < Admin::AdminController
     
     reserve_date = Date.strptime(_reserve_date, ApplicationHelper.date_fmt) if _reserve_date.present?
     reserve_time = Time.strptime(_reserve_time, ApplicationHelper.time_fmt) if _reserve_time.present?
+    
+    if reserve_time.present?
+      reserve_time = ApplicationHelper.to_localtime(DateTime.now.to_date, reserve_time)
+    end
     
     pgnum = params[:pgnum].blank? ? 1 : params[:pgnum].to_i
     pgsize = params[:pgsize].blank? ? 0 : params[:pgsize].to_i
