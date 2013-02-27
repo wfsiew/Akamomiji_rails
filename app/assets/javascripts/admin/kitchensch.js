@@ -274,10 +274,10 @@ var kitchensch = ( function() {
     
     function get_search_param() {
       var param = {
-        category : $('#id_category').val(),
-        name : $('#id_name').val(),
-        location : $('#id_location').val(),
-        week : $('#id_week').val()
+        category : $('#id_query_category').val(),
+        name : $('#id_query_name').val(),
+        location : $('#id_query_location').val(),
+        week : $('#id_query_week').val()
       };
       
       return param;
@@ -303,7 +303,7 @@ var kitchensch = ( function() {
 
     function init() {
       init_ui_opt();
-      $('#id_name').autocomplete({
+      $('#id_query_name').autocomplete({
         source : url.find_name,
         minLength : 2
       });

@@ -1,17 +1,17 @@
 <table>
   <tr>
     <td>
-      <%= label_tag :id_name, 'Name', :class => 'label' %>
+      <%= label_tag :id_query_name, 'Name', :class => 'label' %>
     </td>
     <td class="colspacing">
-      <%= text_field_tag :name, nil, :id => 'id_name', :class => 'search', :placeholder => 'type here to search', 
+      <%= text_field_tag :name, nil, :id => 'id_query_name', :class => 'search', :placeholder => 'type here to search', 
                          :title => 'type here to search' %>
     </td>
     <td>
-      <%= label_tag :id_status, 'Status', :class => 'label' %>
+      <%= label_tag :id_query_status, 'Status', :class => 'label' %>
     </td>
     <td class="colspacing">
-      <select id="id_status" class="select">
+      <select id="id_query_status" class="select">
         <option value="0">All</option>
         <%= options_for_select(@status_list) %>
       </select>

@@ -4,7 +4,6 @@ one:
   id: MyString
   category: 
   staff_id: MyString
-  position: MyString
   location: 
   week: 
   year: 
@@ -20,7 +19,6 @@ two:
   id: MyString
   category: 
   staff_id: MyString
-  position: MyString
   location: 
   week: 
   year: 

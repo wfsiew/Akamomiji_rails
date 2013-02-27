@@ -1,0 +1,11 @@
+<div id="menu">
+  <h3><%= link_to 'Administration', '#' %></h3>
+  <div>
+    <div><%= link_to 'Staff', '#', :onclick => "return staff.load()", :id => 'menu_staff' %></div>
+  </div>
+  <h3><%= link_to 'Staff Schedule', '#' %></h3>
+  <div>
+    <div><%= link_to 'Kitchen', '#', :onclick => "return kitchensch.load()" %></div>
+    <div><%= link_to 'Service', '#', :onclick => "return servicesch.load()" %></div>
+  </div>
+</div>

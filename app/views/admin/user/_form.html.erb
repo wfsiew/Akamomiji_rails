@@ -1,0 +1,39 @@
+<%= form_tag('.', :id => @form_id, :class => 'save_form ui-widget-content ui-widget ui-corner-all') do %>
+  <table>
+    <tr>
+      <td valign="top" class="lbl">
+        <%= label_tag :id_role, 'User Role', :class => 'label' %>
+      </td>
+      <td>
+        <span><%= h @user.role_str %></span>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="lbl">
+        <%= label_tag :pwd, 'Password', :class => 'label' %>
+      </td>
+      <td>
+        <%= password_field_tag :pwd, @user.pwd, :id => 'id_password', :class => 'text', :placeholder => 'enter password',
+                               :title => 'Minimum is 4 characters', :maxlength => 20 %>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="lbl">
+        <%= label_tag :pwd_confirmation, 'Confirm Password', :class => 'label' %>
+      </td>
+      <td>
+        <%= password_field_tag :pwd_confirmation, @user.pwd_confirmation, :id => 'id_passwordconfirm', :class => 'text', :placeholder => 'enter password confirmation',
+                               :title => 'enter password confirmation', :maxlength => 20 %>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <div class="row_button">
+          <%= render 'shared/save_button' %>
+          <%= render 'shared/cancel_button' %>
+        </div>
+      </td>
+    </tr>
+  </table>
+<% end %>

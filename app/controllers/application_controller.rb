@@ -4,15 +4,43 @@ class ApplicationController < ActionController::Base
   LAYOUT = {
     admin: 'admin',
     list: 'list',
+    supervisor: 'supervisor',
     user: 'user'
   }
   
-  # Authenticates a user.
-  def create
+  def new
+    @role_list = ApplicationHelper::UserRole.data
     
+    respond_to do |fmt|
+      fmt.html
+    end
   end
   
-  # Logs out a user.
+  # Authenticates a user.
+  def create
+    user = User.authenticate(params[:role], params[:password])
+    if user.present?
+      session[:user_role] = user.role
+      if user.role == ApplicationHelper::UserRole::ADMIN ||
+        user.role == ApplicationHelper::UserRole::MANAGEMENT
+        redirect_to admin_index_path and return
+        
+      elsif user.role == ApplicationHelper::UserRole::SUPERVISOR
+        redirect_to supervisor_index_path and return
+        
+      else
+        redirect_to user_index_path and return
+      end
+      
+    else
+      flash.now[:alert] = 'Incorrect username or password'
+    end
+    
+    @role_list = ApplicationHelper::UserRole.data
+    
+    render action: 'new'
+  end
+  
   def destroy
     reset_session
     redirect_to login_path
@@ -20,25 +48,21 @@ class ApplicationController < ActionController::Base
   
   protected
   
-  # Returs the current user's user_id.
   def current_user
-    return unless session[:user_id]
-    @current_user ||= session[:user_id]
+    return unless session[:user_role]
+    @current_user ||= session[:user_role]
   end
   
-  # Checks whether a user is authenticated.
   def authenticate
     logged_in? ? true : access_denied
   end
   
-  # Checks whether a user is logged in.
   def logged_in?
     current_user.present?
   end
   
-  # Prevents a user from accessing the system without logging in.
   def access_denied
-    redirect_to login_path, :notice => 'Please log in to continue' and return false
+    redirect_to login_path, notice: 'Please log in to continue' and return false
   end
   
   # Formats a date into dd-mm-yyyy .
@@ -65,9 +89,8 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  # Returns the user_id.
-  def get_user_id
-    session[:user_id]
+  def get_user_role
+    session[:user_role]
   end
   
   helper_method :current_user

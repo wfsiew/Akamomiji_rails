@@ -3,7 +3,6 @@ class CreateUser < ActiveRecord::Migration
     create_table :user, { :primary_key => 'id' } do |t|
       t.string :id, :null => false, :limit => 40
       t.integer :role, :null => false
-      t.integer :type, :null => false
       t.string :password, :null => false
     end
     

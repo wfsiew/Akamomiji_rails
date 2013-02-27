@@ -1,5 +1,5 @@
 module ApplicationHelper
-  # Pager object for paging purpose
+
   class Pager
     attr_accessor :total, :pagenum
     attr_reader :pagesize
@@ -15,17 +15,14 @@ module ApplicationHelper
       set_pagesize(pagesize)
     end
 
-    # Get the paging message.
     def item_message
       Utils.item_message(total, pagenum, pagesize)
     end
 
-    # Get the lower bound of the page.
     def lower_bound
       (pagenum - 1) * pagesize
     end
 
-    # Get the upper bound of the page.
     def upper_bound
       upperbound = pagenum * pagesize
       if total < upperbound
@@ -34,22 +31,18 @@ module ApplicationHelper
       upperbound
     end
 
-    # Checks whether the pager has next page.
     def has_next?
       total > upper_bound ? true : false
     end
 
-    # Checks whether the pager has previous page.
     def has_prev?
       lower_bound > 0 ? true : false
     end
 
-    # Get the total pages.
     def total_pages
       (Float(total) / pagesize).ceil
     end
 
-    # Get the default page size.
     def self.default_page_size
       @@default_page_size
     end
@@ -69,7 +62,6 @@ module ApplicationHelper
   module Utils
     require 'time'
 
-    # Get the paging message.
     def self.item_message(total, pagenum, pagesize)
       x = (pagenum - 1) * pagesize + 1
       y = pagenum * pagesize
@@ -85,7 +77,6 @@ module ApplicationHelper
       "#{x} to #{y} of #{total}"
     end
 
-    # Checks for numeric.
     def self.numeric?(val)
       true if Float(val) rescue false
     end
@@ -140,29 +131,15 @@ module ApplicationHelper
       end
     end
   end
-
-  class UserRole
-    def self.data
-      [['Admin', 1], ['Normal User', 2]]
-    end
-    
-    def self.str(i)
-      case i
-      when 1
-        'Admin'
-        
-      when 2
-        'Normal User'
-        
-      else
-        ''
-      end
-    end
-  end
   
-  class UserType
+  class UserRole
+    ADMIN = 1
+    MANAGEMENT = 2
+    SUPERVISOR = 3
+    USER = 4
+    
     def self.data
-      [['Admin', 1], ['Management', 2], ['Supervisor', 3], ['User', 4]]
+      [['Admin', ADMIN], ['Management', MANAGEMENT], ['Supervisor', SUPERVISOR], ['User', USER]]
     end
     
     def self.str(i)

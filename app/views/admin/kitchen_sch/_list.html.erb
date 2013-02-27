@@ -45,9 +45,9 @@
         <td class="data"><%= o.week %></td>
         <td class="data"><%= h o.category_str %></td>
         <td class="data">
-        <% if o.staff.present? %>
+          <% if o.staff.present? %>
           <%= h o.staff.name %> (<%= h o.staff.job_position.name if o.staff.job_position.present? %>)
-        <% end %>
+          <% end %>
         </td>
         <td class="data">
           <select class="select location">

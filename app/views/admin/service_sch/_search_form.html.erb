@@ -1,37 +1,37 @@
 <table>
   <tr>
     <td>
-      <%= label_tag :id_category, 'Category', :class => 'label' %>
+      <%= label_tag :id_query_category, 'Category', :class => 'label' %>
     </td>
     <td class="colspacing">
-      <select id="id_category" class="select">
+      <select id="id_query_category" class="select">
         <option value="0">All</option>
         <%= options_for_select(@category_list) %>
       </select>
     </td>
     <td>
-      <%= label_tag :id_name, 'Name', :class => 'label' %>
+      <%= label_tag :id_query_name, 'Name', :class => 'label' %>
     </td>
     <td>
-      <%= text_field_tag :name, nil, :id => 'id_name', :class => 'search', :placeholder => 'type here to search', 
+      <%= text_field_tag :name, nil, :id => 'id_query_name', :class => 'search', :placeholder => 'type here to search', 
                          :title => 'type here to search' %>
     </td>
   </tr>
   <tr>
     <td>
-      <%= label_tag :id_location, 'Location', :class => 'label' %>
+      <%= label_tag :id_query_location, 'Location', :class => 'label' %>
     </td>
     <td class="colspacing">
-      <select id="id_location" class="select">
+      <select id="id_query_location" class="select">
         <option value="0">All</option>
         <%= options_for_select(@location_list) %>
       </select>
     </td>
     <td>
-      <%= label_tag :id_week, 'Week', :class => 'label' %>
+      <%= label_tag :id_query_week, 'Week', :class => 'label' %>
     </td>
     <td class="colspacing">
-      <select id="id_week" class="select">
+      <select id="id_query_week" class="select">
         <option value="0">All</option>
         <%= options_for_select(@week_list) %>
       </select>

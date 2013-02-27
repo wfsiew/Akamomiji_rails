@@ -5,7 +5,8 @@ var staff = ( function() {
       edit : '/admin/staff/edit/',
       update : '/admin/staff/update/',
       del : '/admin/staff/delete/',
-      list : '/admin/staff/list/'
+      list : '/admin/staff/list/',
+      find_name : '/admin/staff/find/name/'
     };
     
     var popup_dialog_opt = null;
@@ -212,8 +213,8 @@ var staff = ( function() {
     
     function get_search_param() {
       var param = {
-        name : encodeURIComponent($('#id_name').val()),
-        status : $('#id_status').val()
+        name : $('#id_query_name').val(),
+        status : $('#id_query_status').val()
       };
       
       return param;
@@ -238,6 +239,10 @@ var staff = ( function() {
 
     function init() {
       init_ui_opt();
+      $('#id_query_name').autocomplete({
+        source : url.find_name,
+        minLength : 2
+      });
       $('#id_add').click(show_form);
       $('#id_find').click(nav_list.show_list);
       $('#id_display').change(nav_list.show_list);

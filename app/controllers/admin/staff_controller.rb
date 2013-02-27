@@ -137,4 +137,12 @@ class Admin::StaffController < Admin::AdminController
       message: "#{ids.size} staff(s) was successfully deleted."
     }
   end
+  
+  # GET /staff/find/name
+  def find_name
+    keyword = "%#{params[:term]}%"
+    q = Staff.where('name like ?', keyword)
+    n = q.select(:name).order(:name).all
+    render json: n.map { |o| { value: o[:name] } }
+  end
 end

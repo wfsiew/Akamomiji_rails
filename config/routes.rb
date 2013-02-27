@@ -8,6 +8,35 @@ AkamomijiRails::Application.routes.draw do
   namespace :admin do
     match 'index' => 'admin#index', as: :index, via: :get
     
+    scope 'job', as: 'job' do
+      match '' => 'job_position#index', via: :get
+      match 'list' => 'job_position#list', as: :list, via: [:get, :post]
+      match 'new' => 'job_position#new', as: :new, via: :get
+      match 'create' => 'job_position#create', as: :create, via: :post
+      match 'edit(/:id)' => 'job_position#edit', as: :edit, via: :get
+      match 'update(/:id)' => 'job_position#update', as: :update, via: :post
+      match 'delete' => 'job_position#destroy', as: :delete, via: :post
+      match 'find/name' => 'job_position#find_name', as: :find_name, via: :get
+    end
+    
+    scope 'user', as: 'user' do
+      match '' => 'user#index', via: :get
+      match 'list' => 'user#list', as: :list, via: [:get, :post]
+      match 'edit(/:id)' => 'user#edit', as: :edit, via: :get
+      match 'update(/:id)' => 'user#update', as: :update, via: :post
+    end
+    
+    scope 'staff', as: 'staff' do
+      match '' => 'staff#index', via: :get
+      match 'list' => 'staff#list', as: :list, via: [:get, :post]
+      match 'new' => 'staff#new', as: :new, via: :get
+      match 'create' => 'staff#create', as: :create, via: :post
+      match 'edit(/:id)' => 'staff#edit', as: :edit, via: :get
+      match 'update(/:id)' => 'staff#update', as: :update, via: :post
+      match 'delete' => 'staff#destroy', as: :delete, via: :post
+      match 'find/name' => 'staff#find_name', as: :find_name, via: :get
+    end
+    
     scope 'resv', as: 'resv' do
       match '' => 'reservation#index', via: :get
       match 'list' => 'reservation#list', as: :list, via: [:get, :post]
@@ -19,27 +48,6 @@ AkamomijiRails::Application.routes.draw do
       match 'update/location(/:id)' => 'reservation#update_location', as: :update_location, via: :post
       match 'update/status(/:id)' => 'reservation#update_status', as: :update_status, via: :post
       match 'find/name' => 'reservation#find_name', as: :find_name, via: :get
-    end
-    
-    scope 'job', :as => 'job' do
-      match '' => 'job_position#index', via: :get
-      match 'list' => 'job_position#list', as: :list, via: [:get, :post]
-      match 'new' => 'job_position#new', as: :new, via: :get
-      match 'create' => 'job_position#create', as: :create, via: :post
-      match 'edit(/:id)' => 'job_position#edit', as: :edit, via: :get
-      match 'update(/:id)' => 'job_position#update', as: :update, via: :post
-      match 'delete' => 'job_position#destroy', as: :delete, via: :post
-      match 'find/name' => 'job_position#find_name', as: :find_name, via: :get
-    end
-    
-    scope 'staff', as: 'staff' do
-      match '' => 'staff#index', via: :get
-      match 'list' => 'staff#list', as: :list, via: [:get, :post]
-      match 'new' => 'staff#new', as: :new, via: :get
-      match 'create' => 'staff#create', as: :create, via: :post
-      match 'edit(/:id)' => 'staff#edit', as: :edit, via: :get
-      match 'update(/:id)' => 'staff#update', as: :update, via: :post
-      match 'delete' => 'staff#destroy', as: :delete, via: :post
     end
     
     scope 'sch', as: 'sch' do
@@ -70,6 +78,14 @@ AkamomijiRails::Application.routes.draw do
         match 'find/name' => 'service_sch#find_name', as: :find_name, via: :get
       end
     end
+  end
+  
+  namespace :supervisor do
+    match 'index' => 'supervisor#index', as: :index, via: :get
+  end
+  
+  namespace :user do
+    match 'index' => 'user#index', as: :index, via: :get
   end
   
   # The priority is based upon order of creation:

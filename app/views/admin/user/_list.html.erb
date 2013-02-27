@@ -1,0 +1,22 @@
+<% if @data.present? && @data[:list].any? %>
+  <table class="list_table">
+    <thead class="ui-widget-header">
+      <tr>
+        <th class="data">
+          <div id="hd_role" class="sortheader hover">
+            <span class="colheader">User Role</span>
+            <span class="sorticon"></span>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @data[:list].each do |o| %>
+      <tr id="tr_<%= o.id %>" class="<%= cycle("ui-state-active", "ui-state-default") %>">
+        <td class="data"><%= h o.role_str %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
+<input id="id_pg" type="hidden" value="<%= @data[:hasprev] %>,<%= @data[:hasnext] %>,<%= @data[:prevpage] %>,<%= @data[:nextpage] %>,<%= @data[:item_msg] %>,<%= @data[:sortcolumn] %>,<%= @data[:sortdir] %>" />

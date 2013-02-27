@@ -241,10 +241,10 @@ var reservation = ( function() {
     
     function get_search_param() {
       var param = {
-        reserve_date : $('#id_date').val(),
-        reserve_time : $('#id_time').val(),
-        name : $('#id_name').val(),
-        location : $('#id_location').val()
+        reserve_date : $('#id_query_date').val(),
+        reserve_time : $('#id_query_time').val(),
+        name : $('#id_query_name').val(),
+        location : $('#id_query_location').val()
       };
       
       return param;
@@ -271,7 +271,7 @@ var reservation = ( function() {
 
     function init() {
       init_ui_opt();
-      $('#id_name').autocomplete({
+      $('#id_query_name').autocomplete({
         source : url.find_name,
         minLength : 2
       });

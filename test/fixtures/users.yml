@@ -3,11 +3,9 @@
 one:
   id: MyString
   role: 
-  type: 
   password: MyString
 
 two:
   id: MyString
   role: 
-  type: 
   password: MyString

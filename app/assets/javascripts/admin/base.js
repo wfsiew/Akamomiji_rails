@@ -7,7 +7,7 @@
       theme.init();
       utils.bind_hover($('#logout'));
       $('#menu_user').addClass('menu_active');
-      //user.load();
+      user.load();
     }
 
     return {
