@@ -184,6 +184,10 @@ module ApplicationHelper
   def self.localtime(t)
     t.in_time_zone('Kuala Lumpur')
   end
+  
+  def self.to_localtime(dt, t)
+    Time.new(dt.year, dt.mon, dt.day, t.hour, t.min, 0, '+08:00')
+  end
 
   def self.date_fmt
     '%d-%m-%Y'

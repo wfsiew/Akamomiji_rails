@@ -79,6 +79,10 @@ class Admin::ReservationController < Admin::AdminController
     reserve_date = Date.strptime(_reserve_date, ApplicationHelper.date_fmt) if _reserve_date.present?
     reserve_time = Time.strptime(_reserve_time, ApplicationHelper.time_fmt) if _reserve_time.present?
     
+    if reserve_date.present? && reserve_time.present?
+      reserve_time = ApplicationHelper.to_localtime(reserve_date, reserve_time)
+    end
+    
     o = Reservation.new(id: SecureRandom.uuid, reserve_date: reserve_date, reserve_time: reserve_time,
                         name: params[:name], pax: params[:pax], table: params[:table],
                         phone_no: params[:phone_no], remarks: params[:remarks], location: params[:location], 
@@ -118,6 +122,10 @@ class Admin::ReservationController < Admin::AdminController
     
     reserve_date = Date.strptime(_reserve_date, ApplicationHelper.date_fmt) if _reserve_date.present?
     reserve_time = Time.strptime(_reserve_time, ApplicationHelper.time_fmt) if _reserve_time.present?
+    
+    if reserve_date.present? && reserve_time.present?
+      reserve_time = ApplicationHelper.to_localtime(reserve_date, reserve_time)
+    end
     
     if o.update_attributes(reserve_date: reserve_date, reserve_time: reserve_time,
       name: params[:name], pax: params[:pax], table: params[:table],
