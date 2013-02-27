@@ -16,9 +16,16 @@
         <%= label_tag :id_staff, 'Staff', :class => 'label' %>
       </td>
       <td>
-        <%= text_field_tag :staff, @sch.staff.present? ? @sch.staff.name : nil, :id => 'id_staff', :class => 'text', :placeholder => 'search staff',
-                           :title => 'search staff' %>
-        <%= hidden_field_tag :staff_id, @sch.staff_id, :id => 'id_staff_id' %>
+        <select id="id_staff_id" class="select">
+          <option value="">-- Select --</option>
+          <% @staff_list.each do |o| %>
+          <% if @sch.staff_id == o.id %>
+          <option selected="selected" value="<%= o.id %>"><%= h o.name %> (<%= h o.job_position.name %>)</option>
+          <% else %>
+          <option value="<%= o.id %>"><%= h o.name %> (<%= h o.job_position.name %>)</option>
+          <% end %>
+          <% end %>
+        </select>
       </td>
     </tr>
     <tr>
@@ -38,7 +45,7 @@
       </td>
       <td>
         <select id="id_week" class="select">
-          <option value="0">-- Select --</option>
+          <option value="">-- Select --</option>
           <%= options_for_select(@week_list, 
               @sch.week.blank? ? 0 : @sch.week) %>
         </select>

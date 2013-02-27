@@ -64,6 +64,7 @@ class Admin::KitchenSchController < Admin::ScheduleController
     @category_list = KitchenSch.category_data
     @week_list = ApplicationHelper.week_data
     @shift_list = ApplicationHelper.shift_data
+    @staff_list = Staff.where(status: 1).order(:name).all
     
     respond_to do |fmt|
       fmt.html { render partial: 'form' }
@@ -98,6 +99,7 @@ class Admin::KitchenSchController < Admin::ScheduleController
     @category_list = KitchenSch.category_data
     @week_list = ApplicationHelper.week_data
     @shift_list = ApplicationHelper.shift_data
+    @staff_list = Staff.where(status: 1).order(:name).all
     
     respond_to do |fmt|
       fmt.html { render partial: 'form' }

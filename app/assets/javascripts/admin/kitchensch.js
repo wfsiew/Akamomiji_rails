@@ -28,17 +28,6 @@ var kitchensch = ( function() {
     
     function show_form() {
       $('#dialog_add_body').load(url.add, function() {
-        $('#id_staff').autocomplete({
-          source : url.find_active_name,
-          minLength : 2,
-          select : function(evt, ui) {
-            $('#id_staff_id').val(ui.item.id);
-          }
-        }).data('ui-autocomplete')._renderItem = function(ul, item) {
-           return $('<li>')
-             .append('<a>' + item.label + ' (' + item.job + ')</a>')
-             .appendTo(ul);
-        };
         $('#add-form').find('#id_week').change(load_days);
         $('.save_button.save').click(func_save);
         $('.save_button.cancel').click(func_cancel_add);
@@ -88,7 +77,7 @@ var kitchensch = ( function() {
                 url : '/assets/tpl/label_error.html',
                 ext : '.html'
               }).render(o);
-              if (e == 'week')
+              if (e == 'staff_id' || e == 'week')
                 $('#add-form #id_' + e).after(h);
                 
               else
@@ -110,17 +99,6 @@ var kitchensch = ( function() {
 
       id = utils.get_itemid(id);
       $('#dialog_edit_body').load(url.edit + id, function() {
-        $('#id_staff').autocomplete({
-          source : url.find_active_name,
-          minLength : 2,
-          select : function(evt, ui) {
-            $('#id_staff_id').val(ui.item.id);
-          }
-        }).data('ui-autocomplete')._renderItem = function(ul, item) {
-           return $('<li>')
-             .append('<a>' + item.label + ' (' + item.job + ')</a>')
-             .appendTo(ul);
-        };
         $('#edit-form').find('#id_week').change(load_days);
         $('.save_button.save').click(function() {
           return func_update(id);
@@ -153,7 +131,7 @@ var kitchensch = ( function() {
                 url : '/assets/tpl/label_error.html',
                 ext : '.html'
               }).render(o);
-              if (e == 'week')
+              if (e == 'staff_id'|| e == 'week')
                 $('#edit-form #id_' + e).after(h);
                 
               else
@@ -253,13 +231,12 @@ var kitchensch = ( function() {
 
     function get_data(t) {
       var form = (t == 'add' ? $('#add-form') : $('#edit-form'));
-      var week = form.find('#id_week').val();
 
       var data = {
         category : form.find('#id_category').val(),
         staff_id : form.find('#id_staff_id').val(),
         location : form.find('#id_location').val(),
-        week : week == '0' ? '' : week,
+        week : form.find('#id_week').val(),
         mon : form.find('#id_mon').val(),
         tue : form.find('#id_tue').val(),
         wed : form.find('#id_wed').val(),

@@ -71,7 +71,6 @@ ActiveRecord::Schema.define(:version => 20130226064220) do
 
   create_table "user", :force => true do |t|
     t.integer "role",     :null => false
-    t.integer "type",     :null => false
     t.string  "password", :null => false
   end
 

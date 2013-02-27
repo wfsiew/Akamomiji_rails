@@ -4,8 +4,8 @@ class Admin::ScheduleController < Admin::AdminController
   def find_active_name
     keyword = "%#{params[:term]}%"
     q = Staff.where('status = 1 and name like ?', keyword)
-    n = q.select('name, id, job_position_id').order(:name).all
-    render json: n.map { |o| { value: o[:name], id: o[:id], job: get_job_position(o[:job_position_id]) } }
+    n = q.select('name, id').order(:name).all
+    render json: n.map { |o| { value: o[:name], id: o[:id] } }
   end
   
   # GET /sch/week_days
@@ -33,18 +33,6 @@ class Admin::ScheduleController < Admin::AdminController
     end
     
     o
-  end
-  
-  def get_job_position(id)
-    s = ''
-    begin
-      o = JobPosition.find(id)
-      s = o.name
-    rescue Exception => e
-      
-    end
-    
-    s
   end
   
   helper_method :week_days_helper
