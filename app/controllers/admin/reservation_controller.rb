@@ -81,7 +81,7 @@ class Admin::ReservationController < Admin::AdminController
     _reserve_time = params[:reserve_time]
     
     reserve_date = Date.strptime(_reserve_date, ApplicationHelper.date_fmt) if _reserve_date.present?
-    reserve_time = Time.strptime(_reserve_time, ApplicationHelper.time_fmt) if _reserve_time.present?
+    reserve_time = Time.strptime(_reserve_time, ApplicationHelper.gen_time_fmt) if _reserve_time.present?
     
     if reserve_date.present? && reserve_time.present?
       reserve_time = ApplicationHelper.to_localtime(reserve_date, reserve_time)
@@ -125,7 +125,7 @@ class Admin::ReservationController < Admin::AdminController
     _reserve_time = params[:reserve_time]
     
     reserve_date = Date.strptime(_reserve_date, ApplicationHelper.date_fmt) if _reserve_date.present?
-    reserve_time = Time.strptime(_reserve_time, ApplicationHelper.time_fmt) if _reserve_time.present?
+    reserve_time = Time.strptime(_reserve_time, ApplicationHelper.gen_time_fmt) if _reserve_time.present?
     
     if reserve_date.present? && reserve_time.present?
       reserve_time = ApplicationHelper.to_localtime(reserve_date, reserve_time)

@@ -77,7 +77,7 @@ class ApplicationController < ActionController::Base
   # Helper method.
   def fmt_time(t)
     if t.present?
-      ApplicationHelper.localtime(t).strftime('%l:%M %p')
+      ApplicationHelper.localtime(t).strftime(ApplicationHelper.gen_time_fmt)
     end
   end
   

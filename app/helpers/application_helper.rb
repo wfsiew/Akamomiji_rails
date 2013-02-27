@@ -197,6 +197,10 @@ module ApplicationHelper
     '%H:%M'
   end
   
+  def self.gen_time_fmt
+    '%l:%M %p'
+  end
+  
   def self.week_data
     (1..53).map { |o| [o.to_s, o] }
   end

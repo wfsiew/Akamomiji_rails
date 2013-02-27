@@ -25,8 +25,36 @@ var reservation = ( function() {
       };
     }
     
+    function init_widget() {
+      $.widget("ui.timespinner", $.ui.spinner, {
+        options: {
+          // seconds
+          step: 60 * 1000,
+          // hours
+          page: 60
+        },
+         
+        _parse: function(value) {
+          if (typeof value === "string") {
+            // already a timestamp
+            if (Number(value) == value) {
+              return Number(value);
+            }
+             
+            return +Globalize.parseDate(value);
+          }
+          return value;
+        },
+         
+        _format: function(value) {
+          return Globalize.format(new Date(value), "t");
+        }
+      });
+    }
+    
     function show_form() {
       $('#dialog_add_body').load(url.add, function() {
+        $('#id_reserve_time').timespinner();
         $('.save_form .date_input').datepicker(utils.date_opt());
         $('.save_button.save').click(func_save);
         $('.save_button.cancel').click(func_cancel_add);
@@ -94,6 +122,7 @@ var reservation = ( function() {
 
       id = utils.get_itemid(id);
       $('#dialog_edit_body').load(url.edit + id, function() {
+        $('#id_reserve_time').timespinner();
         $('.save_form .date_input').datepicker(utils.date_opt());
         $('.save_button.save').click(function() {
           return func_update(id);
@@ -271,6 +300,7 @@ var reservation = ( function() {
 
     function init() {
       init_ui_opt();
+      init_widget();
       $('#id_query_name').autocomplete({
         source : url.find_name,
         minLength : 2
