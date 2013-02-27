@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
       end
       
     else
-      flash.now[:alert] = 'Incorrect username or password'
+      flash.now[:alert] = 'Incorrect password'
     end
     
     @role_list = ApplicationHelper::UserRole.data
