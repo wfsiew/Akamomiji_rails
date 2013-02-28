@@ -206,6 +206,6 @@ module ApplicationHelper
   end
   
   def self.shift_data
-    [['A', 'A'], ['B', 'B'], ['C', 'C'], ['D', 'D'], ['E', 'E'], ['F', 'F']]
+    [['A', 'A'], ['B', 'B'], ['C', 'C'], ['D', 'D'], ['E', 'E'], ['F', 'F'], ['G', 'SP'], ['H', 'OFF'], ['I', 'OTHERS']]
   end
 end
