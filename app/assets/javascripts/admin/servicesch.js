@@ -17,7 +17,7 @@ var servicesch = ( function() {
     function init_ui_opt() {
       popup_dialog_opt = {
         autoOpen : false,
-        width : 650,
+        width : 720,
         resizable : false,
         draggable : true,
         modal : false,
