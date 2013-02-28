@@ -240,7 +240,7 @@ var staff = ( function() {
           var id = ui.selected.id;
           func_edit(id);
         },
-        cancel : '.deleteicon'
+        cancel : '.deleteicon,input,textarea,button,select,option'
       });
       $('.sortheader').click(sort_list);
       $('.list_table tbody tr').hover(function() {

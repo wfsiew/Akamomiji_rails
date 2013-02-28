@@ -299,7 +299,7 @@ var reservation = ( function() {
           var id = ui.selected.id;
           func_edit(id);
         },
-        cancel : '.deleteicon'
+        cancel : '.deleteicon,input,textarea,button,select,option'
       });
       $('.sortheader').click(sort_list);
       $('.location').change(func_update_location);

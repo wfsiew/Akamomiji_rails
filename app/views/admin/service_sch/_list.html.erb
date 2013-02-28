@@ -52,7 +52,7 @@
           <% end %>
         </td>
         <td class="data">
-          <select class="select location">
+          <select class="location">
             <%= options_for_select(@location_list, 
                 o.location.blank? ? 1 : o.location) %>
           </select>
