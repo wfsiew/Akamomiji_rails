@@ -149,19 +149,20 @@ var job = ( function() {
         id = utils.get_itemid(id);
         l.push(id);
       });
-
+      delete_helper(trlist, l);
+    }
+    
+    function delete_helper(trlist, idlist) {
       var val = $('#id_pg').val();
       var arr = val.split(',');
       var currpg = parseInt(arr[3], 10);
       --currpg;
       var pgsize = $('#id_display').val();
-      var search_by = $('#id_selection').val();
       var keyword = $('#id_query').val();
       var data = {
-        'id[]' : l,
+        'id[]' : idlist,
         pgnum : currpg,
         pgsize : pgsize,
-        find : search_by,
         keyword : keyword
       };
 
@@ -203,17 +204,30 @@ var job = ( function() {
       var s = sort.set_sort_css($(this));
       nav_list.set_sort(s);
     }
+    
+    function delete_item(evt) {
+      evt.stopPropagation();
+      var id = $(this).parent().parent().attr('id');
+      var trlist = ['#' + id];
+      id = utils.get_itemid(id);
+      var l = [id];
+      delete_helper(trlist, l);
+    }
 
     function init_list() {
       $('.hdchk').click(select_all);
       utils.bind_hoverlist($('.list_table tbody tr'));
-      $('.list_table tbody').selectable({
-        selected : function(evt, ui) {
-          var id = ui.selected.id;
-          func_edit(id);
-        }
+      $('.list_table tbody tr').click(function() {
+        var id = $(this).attr('id');
+        func_edit(id);
       });
       $('.sortheader').click(sort_list);
+      $('.list_table tbody tr').hover(function() {
+        $(this).find('.deleteicon').show();
+      }, function() {
+        $(this).find('.deleteicon').hide();
+      });
+      $('.list_table tbody tr .deleteicon').click(delete_item);
     }
 
     function init() {

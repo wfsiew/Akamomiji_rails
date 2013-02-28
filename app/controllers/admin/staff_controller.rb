@@ -125,10 +125,10 @@ class Admin::StaffController < Admin::AdminController
     }
     
     if name.blank? && status == 0
-      itemscount = StatusHelper.item_message(nil, pgnum, pgsize)
+      itemscount = StaffHelper.item_message(nil, pgnum, pgsize)
       
     else
-      itemscount = StatusHelper.item_message(filters, pgnum, pgsize)
+      itemscount = StaffHelper.item_message(filters, pgnum, pgsize)
     end
     
     render json: {

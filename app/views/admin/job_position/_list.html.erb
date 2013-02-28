@@ -3,6 +3,7 @@
     <thead class="ui-widget-header">
       <tr>
         <th class="data chkbox"><input class="hdchk" type="checkbox" /></th>
+        <th class="delete"></th>
         <th class="data">
           <div id="hd_name" class="sortheader hover">
             <span class="colheader">Position Name</span>
@@ -15,6 +16,7 @@
     <% @data[:list].each do |o| %>
       <tr id="tr_<%= o.id %>" class="<%= cycle("ui-state-active", "ui-state-default") %>">
         <td class="data chkbox"><input class="chk" type="checkbox" /></td>
+        <td class="delete"><span class="icons deleteicon paddicon"></span></td>
         <td class="data"><%= h o.name %></td>
       </tr>
     <% end %>

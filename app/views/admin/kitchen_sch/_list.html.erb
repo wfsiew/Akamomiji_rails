@@ -3,6 +3,7 @@
     <thead class="ui-widget-header">
       <tr>
         <th class="data chkbox"><input class="hdchk" type="checkbox" /></th>
+        <th class="delete"></th>
         <th class="data">
           <div id="hd_week" class="sortheader hover">
             <span class="colheader">Week</span>
@@ -42,6 +43,7 @@
         <% days = week_days_helper(o.week, o.year) %>
         <% shift = [o.mon, o.tue, o.wed, o.thur, o.fri, o.sat, o.sun] %>
         <td class="data chkbox"><input class="chk" type="checkbox" /></td>
+        <td class="delete"><span class="icons deleteicon paddicon"></span></td>
         <td class="data"><%= o.week %></td>
         <td class="data"><%= h o.category_str %></td>
         <td class="data">
