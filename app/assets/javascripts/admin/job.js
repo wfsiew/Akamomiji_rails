@@ -217,9 +217,12 @@ var job = ( function() {
     function init_list() {
       $('.hdchk').click(select_all);
       utils.bind_hoverlist($('.list_table tbody tr'));
-      $('.list_table tbody tr').click(function() {
-        var id = $(this).attr('id');
-        func_edit(id);
+      $('.list_table tbody').selectable({
+        selected : function(evt, ui) {
+          var id = ui.selected.id;
+          func_edit(id);
+        },
+        cancel : '.deleteicon'
       });
       $('.sortheader').click(sort_list);
       $('.list_table tbody tr').hover(function() {
