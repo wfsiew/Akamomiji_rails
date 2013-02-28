@@ -1,3 +1,4 @@
+
 <% if @data.present? && @data[:list].any? %>
   <table class="list_table">
     <thead class="ui-widget-header">
@@ -59,7 +60,7 @@
         </td>
         <% (0..6).each do |k| %>
         <td class="data">
-          <%= days[k] %> | <%= shift[k] %>
+          <%= days[k] %> | <%= shift_str(shift[k]) %>
         </td>
         <% end %>
       </tr>

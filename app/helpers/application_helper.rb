@@ -206,6 +206,22 @@ module ApplicationHelper
   end
   
   def self.shift_data
-    [['A', 'A'], ['B', 'B'], ['C', 'C'], ['D', 'D'], ['E', 'E'], ['F', 'F'], ['G', 'SP'], ['H', 'OFF'], ['I', 'OTHERS']]
+    [['A', 'A'], ['B', 'B'], ['C', 'C'], ['D', 'D'], ['E', 'E'], ['F', 'F'], ['SP', 'G'], ['OFF', 'H'], ['OTHERS', 'I']]
+  end
+  
+  def self.shift_str(v)
+    case v
+    when 'G'
+      'SP'
+      
+    when 'H'
+      'OFF'
+      
+    when 'I'
+      'OTHERS'
+      
+    else
+      v
+    end
   end
 end

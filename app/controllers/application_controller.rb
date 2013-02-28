@@ -81,12 +81,17 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  # Formats a time into hh:mm 24 hour format .
+  # Formats a time into hh:mm 24 hour format.
   # Helper method.
   def fmt_miltime(t)
     if t.present?
       ApplicationHelper.localtime(t).strftime(ApplicationHelper.time_fmt)
     end
+  end
+  
+  # Helper method.
+  def shift_str(v)
+    ApplicationHelper.shift_str(v)
   end
   
   def get_user_role
@@ -98,4 +103,5 @@ class ApplicationController < ActionController::Base
   helper_method :fmt_date
   helper_method :fmt_time
   helper_method :fmt_miltime
+  helper_method :shift_str
 end
