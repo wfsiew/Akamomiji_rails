@@ -34,21 +34,25 @@ form {
 }
 
 .text-box {
-  width: 25em;
+  width: 18em;
+  font-size: 1.2em;
+  padding: 1px 10px;
 }
 
 .select {
-  width: 25.2em;
+  width: 23.1em;
+  font-size: 1em;
 }
 
 .login_btn {
   padding-top: 10px;
   padding-bottom: 10px;
   width: 150px;
+  font: 12pt Trebuchet MS, Tahoma, Verdana, Arial, sans-serif bolder !important;
 }
 
 .login_btn:hover {
-  font-weight: bold;
+  text-decoration: underline;
 }
 
 div.row {
